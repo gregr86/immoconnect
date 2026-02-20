@@ -15,6 +15,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppSubscriptionRouteImport } from './routes/_app/subscription'
 import { Route as AppSearchRouteImport } from './routes/_app/search'
+import { Route as AppMessagingRouteImport } from './routes/_app/messaging'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
 import { Route as AppListingsNewRouteImport } from './routes/_app/listings/new'
@@ -49,6 +50,11 @@ const AppSubscriptionRoute = AppSubscriptionRouteImport.update({
 const AppSearchRoute = AppSearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMessagingRoute = AppMessagingRouteImport.update({
+  id: '/messaging',
+  path: '/messaging',
   getParentRoute: () => AppRoute,
 } as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/messaging': typeof AppMessagingRoute
   '/search': typeof AppSearchRoute
   '/subscription': typeof AppSubscriptionRoute
   '/admin/moderation': typeof AppAdminModerationRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/messaging': typeof AppMessagingRoute
   '/search': typeof AppSearchRoute
   '/subscription': typeof AppSubscriptionRoute
   '/admin/moderation': typeof AppAdminModerationRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/messaging': typeof AppMessagingRoute
   '/_app/search': typeof AppSearchRoute
   '/_app/subscription': typeof AppSubscriptionRoute
   '/_app/admin/moderation': typeof AppAdminModerationRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/dashboard'
+    | '/messaging'
     | '/search'
     | '/subscription'
     | '/admin/moderation'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/dashboard'
+    | '/messaging'
     | '/search'
     | '/subscription'
     | '/admin/moderation'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/_app/dashboard'
+    | '/_app/messaging'
     | '/_app/search'
     | '/_app/subscription'
     | '/_app/admin/moderation'
@@ -216,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof AppSearchRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/messaging': {
+      id: '/_app/messaging'
+      path: '/messaging'
+      fullPath: '/messaging'
+      preLoaderRoute: typeof AppMessagingRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/dashboard': {
@@ -278,6 +297,7 @@ const AppListingsPropertyIdRouteWithChildren =
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppMessagingRoute: typeof AppMessagingRoute
   AppSearchRoute: typeof AppSearchRoute
   AppSubscriptionRoute: typeof AppSubscriptionRoute
   AppAdminModerationRoute: typeof AppAdminModerationRoute
@@ -288,6 +308,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppMessagingRoute: AppMessagingRoute,
   AppSearchRoute: AppSearchRoute,
   AppSubscriptionRoute: AppSubscriptionRoute,
   AppAdminModerationRoute: AppAdminModerationRoute,

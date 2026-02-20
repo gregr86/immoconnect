@@ -171,3 +171,116 @@ export interface SubscriptionPlanInfo {
   features: string[];
   recommended: boolean;
 }
+
+// Sprint 3 — Messagerie & Notifications
+
+export type NotificationType =
+  | "new_message"
+  | "property_status_change"
+  | "new_match"
+  | "system";
+
+export interface ConversationParticipant {
+  userId: string;
+  name: string;
+  image?: string | null;
+  companyName?: string | null;
+  role?: string;
+  lastReadAt?: string | null;
+  joinedAt?: string;
+}
+
+export interface ConversationLastMessage {
+  id: string;
+  content: string | null;
+  senderId: string;
+  senderName: string | null;
+  createdAt: string;
+}
+
+export interface Conversation {
+  id: string;
+  propertyId: string;
+  subject?: string | null;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  property?: { id: string; title: string; city?: string | null } | null;
+  participants: ConversationParticipant[];
+  lastMessage: ConversationLastMessage | null;
+  unreadCount: number;
+}
+
+export interface ConversationsResponse {
+  items: Conversation[];
+}
+
+export interface MessageAttachment {
+  id: string;
+  messageId?: string;
+  fileName: string;
+  originalName: string;
+  mimeType: string;
+  size: number;
+  path?: string;
+  createdAt: string;
+  uploadedBy?: string;
+}
+
+export interface MessageSender {
+  id: string;
+  name: string;
+  image?: string | null;
+  companyName?: string | null;
+}
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  content: string | null;
+  createdAt: string;
+  sender?: MessageSender | null;
+  attachments: MessageAttachment[];
+}
+
+export interface MessagesResponse {
+  items: Message[];
+  hasMore: boolean;
+}
+
+export interface ConversationDetail {
+  id: string;
+  propertyId: string;
+  subject?: string | null;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  property: (Property & { photos: PropertyFile[] }) | null;
+  participants: ConversationParticipant[];
+  sharedDocuments: MessageAttachment[];
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  type: NotificationType;
+  title: string;
+  message?: string | null;
+  link?: string | null;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface NotificationsResponse {
+  items: Notification[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
+export interface NotificationPreferences {
+  emailNewMessage: boolean;
+  emailPropertyStatus: boolean;
+  emailNewMatch: boolean;
+}

@@ -1,4 +1,5 @@
 import { pgTable, text, timestamp, boolean, integer, numeric, pgEnum, json } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 // Better Auth tables
 export const user = pgTable("user", {
@@ -236,3 +237,154 @@ export const invoice = pgTable("invoice", {
   invoicePdfUrl: text("invoice_pdf_url"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+// Sprint 3 — Enums
+export const notificationTypeEnum = pgEnum("notification_type", [
+  "new_message",
+  "property_status_change",
+  "new_match",
+  "system",
+]);
+
+// Sprint 3 — Messagerie
+export const conversation = pgTable("conversation", {
+  id: text("id").primaryKey(),
+  propertyId: text("property_id")
+    .notNull()
+    .references(() => property.id),
+  subject: text("subject"),
+  createdBy: text("created_by")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const conversationParticipant = pgTable("conversation_participant", {
+  id: text("id").primaryKey(),
+  conversationId: text("conversation_id")
+    .notNull()
+    .references(() => conversation.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  lastReadAt: timestamp("last_read_at"),
+  joinedAt: timestamp("joined_at").notNull().defaultNow(),
+});
+
+export const message = pgTable("message", {
+  id: text("id").primaryKey(),
+  conversationId: text("conversation_id")
+    .notNull()
+    .references(() => conversation.id, { onDelete: "cascade" }),
+  senderId: text("sender_id")
+    .notNull()
+    .references(() => user.id),
+  content: text("content"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const messageAttachment = pgTable("message_attachment", {
+  id: text("id").primaryKey(),
+  messageId: text("message_id")
+    .notNull()
+    .references(() => message.id, { onDelete: "cascade" }),
+  fileName: text("file_name").notNull(),
+  originalName: text("original_name").notNull(),
+  mimeType: text("mime_type").notNull(),
+  size: integer("size").notNull(),
+  path: text("path").notNull(),
+  uploadedBy: text("uploaded_by")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Sprint 3 — Notifications
+export const notification = pgTable("notification", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  type: notificationTypeEnum("type").notNull(),
+  title: text("title").notNull(),
+  message: text("message"),
+  link: text("link"),
+  read: boolean("read").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const notificationPreference = pgTable("notification_preference", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id)
+    .unique(),
+  emailNewMessage: boolean("email_new_message").notNull().default(true),
+  emailPropertyStatus: boolean("email_property_status").notNull().default(true),
+  emailNewMatch: boolean("email_new_match").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 3 — Relations
+export const conversationRelations = relations(conversation, ({ one, many }) => ({
+  property: one(property, {
+    fields: [conversation.propertyId],
+    references: [property.id],
+  }),
+  createdByUser: one(user, {
+    fields: [conversation.createdBy],
+    references: [user.id],
+  }),
+  participants: many(conversationParticipant),
+  messages: many(message),
+}));
+
+export const conversationParticipantRelations = relations(conversationParticipant, ({ one }) => ({
+  conversation: one(conversation, {
+    fields: [conversationParticipant.conversationId],
+    references: [conversation.id],
+  }),
+  user: one(user, {
+    fields: [conversationParticipant.userId],
+    references: [user.id],
+  }),
+}));
+
+export const messageRelations = relations(message, ({ one, many }) => ({
+  conversation: one(conversation, {
+    fields: [message.conversationId],
+    references: [conversation.id],
+  }),
+  sender: one(user, {
+    fields: [message.senderId],
+    references: [user.id],
+  }),
+  attachments: many(messageAttachment),
+}));
+
+export const messageAttachmentRelations = relations(messageAttachment, ({ one }) => ({
+  message: one(message, {
+    fields: [messageAttachment.messageId],
+    references: [message.id],
+  }),
+  uploadedByUser: one(user, {
+    fields: [messageAttachment.uploadedBy],
+    references: [user.id],
+  }),
+}));
+
+export const notificationRelations = relations(notification, ({ one }) => ({
+  user: one(user, {
+    fields: [notification.userId],
+    references: [user.id],
+  }),
+}));
+
+export const notificationPreferenceRelations = relations(notificationPreference, ({ one }) => ({
+  user: one(user, {
+    fields: [notificationPreference.userId],
+    references: [user.id],
+  }),
+}));

@@ -6,6 +6,8 @@ import { adminRoutes } from "./routes/admin";
 import { uploadRoutes } from "./routes/uploads";
 import { searchRoutes } from "./routes/search";
 import { subscriptionRoutes, webhookRoute } from "./routes/subscriptions";
+import { messagingRoutes } from "./routes/messaging";
+import { notificationRoutes } from "./routes/notifications";
 
 const app = new Elysia()
   // Webhook Stripe (raw body, sans CORS)
@@ -22,6 +24,8 @@ const app = new Elysia()
   .use(uploadRoutes)
   .use(searchRoutes)
   .use(subscriptionRoutes)
+  .use(messagingRoutes)
+  .use(notificationRoutes)
   .get("/api/health", () => ({ status: "ok" }))
   .listen(3000);
 

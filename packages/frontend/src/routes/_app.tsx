@@ -11,8 +11,8 @@ import {
   Building2,
   Search,
   CreditCard,
+  MessageSquare,
   Settings,
-  Bell,
   Menu,
   LogOut,
   ShieldCheck,
@@ -30,6 +30,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { NotificationDropdown } from "@/components/messaging/notification-dropdown";
 
 export const Route = createFileRoute("/_app")({
   beforeLoad: async () => {
@@ -46,6 +47,7 @@ const navItems = [
   { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" as const },
   { label: "Annonces", icon: Building2, to: "/listings" as const },
   { label: "Recherche & Matching", icon: Search, to: "/search" as const },
+  { label: "Messagerie", icon: MessageSquare, to: "/messaging" as const },
   { label: "Abonnement", icon: CreditCard, to: "/subscription" as const },
 ];
 
@@ -149,15 +151,7 @@ function AppLayout() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button
-              className="relative text-foreground hover:text-primary transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive text-destructive-foreground text-[10px] rounded-full flex items-center justify-center">
-                3
-              </span>
-            </button>
+            <NotificationDropdown />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
