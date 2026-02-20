@@ -1,0 +1,12 @@
+{
+  "name": "immoconnect",
+  "private": true,
+  "workspaces": ["packages/frontend", "packages/backend"],
+  "scripts": {
+    "dev:frontend": "bun run --cwd packages/frontend dev",
+    "dev:backend": "bun run --cwd packages/backend dev",
+    "dev": "bun run dev:backend & bun run dev:frontend",
+    "build:frontend": "bun run --cwd packages/frontend build",
+    "build:backend": "bun run --cwd packages/backend build"
+  }
+}
