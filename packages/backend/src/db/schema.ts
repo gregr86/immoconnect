@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, integer, numeric, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, numeric, pgEnum, json } from "drizzle-orm/pg-core";
 
 // Better Auth tables
 export const user = pgTable("user", {
@@ -11,6 +11,7 @@ export const user = pgTable("user", {
   phone: text("phone"),
   companyName: text("company_name"),
   siret: text("siret"),
+  stripeCustomerId: text("stripe_customer_id"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -122,6 +123,7 @@ export const property = pgTable("property", {
   floor: integer("floor"),
   parkingSpots: integer("parking_spots"),
   accessibility: boolean("accessibility").default(false),
+  airConditioning: boolean("air_conditioning").default(false),
   // Validation admin
   validatedAt: timestamp("validated_at"),
   validatedBy: text("validated_by").references(() => user.id),
@@ -150,5 +152,87 @@ export const propertyFile = pgTable("property_file", {
   uploadedBy: text("uploaded_by")
     .notNull()
     .references(() => user.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Sprint 2 — Enums
+export const subscriptionPlanEnum = pgEnum("subscription_plan", [
+  "decouverte",
+  "professionnel",
+  "entreprise",
+]);
+
+export const subscriptionStatusEnum = pgEnum("subscription_status", [
+  "active",
+  "past_due",
+  "canceled",
+  "incomplete",
+  "trialing",
+]);
+
+export const invoiceStatusEnum = pgEnum("invoice_status", [
+  "paid",
+  "pending",
+  "failed",
+  "void",
+]);
+
+// Sprint 2 — Recherches sauvegardées
+export const searchCriteria = pgTable("search_criteria", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  name: text("name").notNull(),
+  propertyTypes: text("property_types"), // JSON string array
+  city: text("city"),
+  postalCode: text("postal_code"),
+  latitude: numeric("latitude"),
+  longitude: numeric("longitude"),
+  radiusKm: numeric("radius_km").default("10"),
+  surfaceMin: numeric("surface_min"),
+  surfaceMax: numeric("surface_max"),
+  rentMin: numeric("rent_min"),
+  rentMax: numeric("rent_max"),
+  accessibility: boolean("accessibility"),
+  parking: boolean("parking"),
+  airConditioning: boolean("air_conditioning"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 2 — Abonnements
+export const subscription = pgTable("subscription", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  plan: subscriptionPlanEnum("plan").notNull(),
+  status: subscriptionStatusEnum("status").notNull().default("incomplete"),
+  stripeCustomerId: text("stripe_customer_id"),
+  stripeSubscriptionId: text("stripe_subscription_id"),
+  stripePriceId: text("stripe_price_id"),
+  currentPeriodStart: timestamp("current_period_start"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 2 — Factures
+export const invoice = pgTable("invoice", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  subscriptionId: text("subscription_id").references(() => subscription.id),
+  stripeInvoiceId: text("stripe_invoice_id"),
+  amountTtc: integer("amount_ttc"), // en centimes
+  amountHt: integer("amount_ht"), // en centimes
+  status: invoiceStatusEnum("status").notNull().default("pending"),
+  description: text("description"),
+  invoiceDate: timestamp("invoice_date"),
+  paidAt: timestamp("paid_at"),
+  invoicePdfUrl: text("invoice_pdf_url"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

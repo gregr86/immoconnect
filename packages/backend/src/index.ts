@@ -4,8 +4,12 @@ import { auth } from "./auth";
 import { propertyRoutes } from "./routes/properties";
 import { adminRoutes } from "./routes/admin";
 import { uploadRoutes } from "./routes/uploads";
+import { searchRoutes } from "./routes/search";
+import { subscriptionRoutes, webhookRoute } from "./routes/subscriptions";
 
 const app = new Elysia()
+  // Webhook Stripe (raw body, sans CORS)
+  .use(webhookRoute)
   .use(cors({
     origin: ["http://localhost:3001"],
     credentials: true,
@@ -16,6 +20,8 @@ const app = new Elysia()
   .use(propertyRoutes)
   .use(adminRoutes)
   .use(uploadRoutes)
+  .use(searchRoutes)
+  .use(subscriptionRoutes)
   .get("/api/health", () => ({ status: "ok" }))
   .listen(3000);
 

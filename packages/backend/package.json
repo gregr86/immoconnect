@@ -11,13 +11,14 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.2.0",
     "better-auth": "^1.2.0",
     "drizzle-orm": "^0.41.0",
     "elysia": "^1.2.0",
-    "@elysiajs/cors": "^1.2.0",
+    "nanoid": "^5.0.0",
     "postgres": "^3.4.5",
-    "zod": "^3.24.0",
-    "nanoid": "^5.0.0"
+    "stripe": "^20.3.1",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/bun": "^1.1.14",

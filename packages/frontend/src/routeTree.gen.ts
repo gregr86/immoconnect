@@ -13,6 +13,8 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppSubscriptionRouteImport } from './routes/_app/subscription'
+import { Route as AppSearchRouteImport } from './routes/_app/search'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
 import { Route as AppListingsNewRouteImport } from './routes/_app/listings/new'
@@ -38,6 +40,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppSubscriptionRoute = AppSubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSearchRoute = AppSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
@@ -76,6 +88,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/search': typeof AppSearchRoute
+  '/subscription': typeof AppSubscriptionRoute
   '/admin/moderation': typeof AppAdminModerationRoute
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
@@ -87,6 +101,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/search': typeof AppSearchRoute
+  '/subscription': typeof AppSubscriptionRoute
   '/admin/moderation': typeof AppAdminModerationRoute
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
@@ -100,6 +116,8 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/search': typeof AppSearchRoute
+  '/_app/subscription': typeof AppSubscriptionRoute
   '/_app/admin/moderation': typeof AppAdminModerationRoute
   '/_app/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/_app/listings/new': typeof AppListingsNewRoute
@@ -113,6 +131,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/dashboard'
+    | '/search'
+    | '/subscription'
     | '/admin/moderation'
     | '/listings/$propertyId'
     | '/listings/new'
@@ -124,6 +144,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/dashboard'
+    | '/search'
+    | '/subscription'
     | '/admin/moderation'
     | '/listings/$propertyId'
     | '/listings/new'
@@ -136,6 +158,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/_app/dashboard'
+    | '/_app/search'
+    | '/_app/subscription'
     | '/_app/admin/moderation'
     | '/_app/listings/$propertyId'
     | '/_app/listings/new'
@@ -179,6 +203,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/subscription': {
+      id: '/_app/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof AppSubscriptionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/search': {
+      id: '/_app/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof AppSearchRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/dashboard': {
       id: '/_app/dashboard'
@@ -240,6 +278,8 @@ const AppListingsPropertyIdRouteWithChildren =
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppSearchRoute: typeof AppSearchRoute
+  AppSubscriptionRoute: typeof AppSubscriptionRoute
   AppAdminModerationRoute: typeof AppAdminModerationRoute
   AppListingsPropertyIdRoute: typeof AppListingsPropertyIdRouteWithChildren
   AppListingsNewRoute: typeof AppListingsNewRoute
@@ -248,6 +288,8 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppSearchRoute: AppSearchRoute,
+  AppSubscriptionRoute: AppSubscriptionRoute,
   AppAdminModerationRoute: AppAdminModerationRoute,
   AppListingsPropertyIdRoute: AppListingsPropertyIdRouteWithChildren,
   AppListingsNewRoute: AppListingsNewRoute,

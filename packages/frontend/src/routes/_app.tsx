@@ -9,6 +9,8 @@ import {
 import {
   LayoutDashboard,
   Building2,
+  Search,
+  CreditCard,
   Settings,
   Bell,
   Menu,
@@ -43,6 +45,8 @@ export const Route = createFileRoute("/_app")({
 const navItems = [
   { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" as const },
   { label: "Annonces", icon: Building2, to: "/listings" as const },
+  { label: "Recherche & Matching", icon: Search, to: "/search" as const },
+  { label: "Abonnement", icon: CreditCard, to: "/subscription" as const },
 ];
 
 function AppLayout() {
