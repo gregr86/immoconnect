@@ -1,12 +1,10 @@
-import { Building2, MapPin, Maximize2, Euro } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { MapPin, Maximize2, Banknote } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MatchScoreBadge } from "./match-score-badge";
 import type { SearchResultProperty } from "@/types";
 
 const TYPE_LABELS: Record<string, string> = {
-  local_commercial: "Local commercial",
+  local_commercial: "Commerce",
   bureau: "Bureau",
   entrepot: "Entrepôt",
   terrain: "Terrain",
@@ -28,70 +26,72 @@ export function SearchResultCard({
   const imageUrl = photo ? `/api/files/${photo.id}/download` : null;
 
   return (
-    <Card
+    <div
       className={cn(
-        "flex gap-3 p-3 cursor-pointer transition-all hover:shadow-md",
-        isSelected && "ring-2 ring-primary",
+        "group bg-card rounded-xl p-3 shadow-sm border border-transparent hover:shadow-md hover:border-primary/20 transition-all flex gap-4 cursor-pointer",
+        isSelected && "ring-2 ring-primary border-primary/30",
       )}
       onClick={onClick}
     >
-      {/* Image */}
-      <div className="h-24 w-32 shrink-0 rounded-lg bg-muted overflow-hidden">
+      {/* Image avec badge type overlay */}
+      <div className="w-32 h-24 shrink-0 rounded-lg bg-muted overflow-hidden relative">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={property.title}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center">
-            <Building2 className="h-8 w-8 text-muted-foreground/50" />
-          </div>
+          <div className="h-full w-full bg-secondary/10" />
         )}
+        <div className="absolute top-2 left-2 bg-sidebar/80 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium uppercase">
+          {TYPE_LABELS[property.type] || property.type}
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <Badge variant="secondary" className="text-[10px] mb-1">
-              {TYPE_LABELS[property.type] || property.type}
-            </Badge>
-            <h4 className="font-heading font-bold text-sm truncate">
-              {property.title}
-            </h4>
-          </div>
-          <MatchScoreBadge
-            score={property.score}
-            label={property.scoreLabel}
-            size="sm"
-          />
+      <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
+        <div>
+          <h4 className="font-heading font-bold text-lg text-foreground leading-tight truncate group-hover:text-primary transition-colors">
+            {property.title}
+          </h4>
+          <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
+            {[property.city, property.postalCode].filter(Boolean).join(", ") ||
+              "Adresse non renseignée"}
+          </p>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-          <MapPin className="h-3 w-3 shrink-0" />
-          <span className="truncate">
-            {[property.address, property.city, property.postalCode]
-              .filter(Boolean)
-              .join(", ") || "Adresse non renseignée"}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4 mt-2 text-xs">
+        <div className="flex items-center gap-4 mt-2">
           {property.surface && (
-            <span className="flex items-center gap-1 text-foreground">
-              <Maximize2 className="h-3 w-3" />
+            <div className="flex items-center gap-1.5 text-foreground font-medium text-sm">
+              <Maximize2 className="h-3.5 w-3.5 text-muted-foreground" />
               {parseFloat(property.surface).toLocaleString("fr-FR")} m²
-            </span>
+            </div>
+          )}
+          {property.surface && property.rent && (
+            <div className="w-px h-3 bg-border" />
           )}
           {property.rent && (
-            <span className="flex items-center gap-1 font-semibold text-foreground">
-              <Euro className="h-3 w-3" />
-              {parseFloat(property.rent).toLocaleString("fr-FR")} €/mois
-            </span>
+            <div className="flex items-center gap-1.5 text-foreground font-medium text-sm">
+              <Banknote className="h-3.5 w-3.5 text-muted-foreground" />
+              {parseFloat(property.rent).toLocaleString("fr-FR")} €
+              <span className="text-xs text-muted-foreground font-normal">
+                /mois
+              </span>
+            </div>
           )}
         </div>
       </div>
-    </Card>
+
+      {/* Score avec séparateur */}
+      <div className="flex flex-col items-center justify-center pl-3 border-l border-border">
+        <MatchScoreBadge
+          score={property.score}
+          label={property.scoreLabel}
+          size="md"
+        />
+      </div>
+    </div>
   );
 }
