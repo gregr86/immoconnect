@@ -1,6 +1,9 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { auth } from "./auth";
+import { propertyRoutes } from "./routes/properties";
+import { adminRoutes } from "./routes/admin";
+import { uploadRoutes } from "./routes/uploads";
 
 const app = new Elysia()
   .use(cors({
@@ -10,6 +13,9 @@ const app = new Elysia()
   .all("/api/auth/*", (ctx) => {
     return auth.handler(ctx.request);
   })
+  .use(propertyRoutes)
+  .use(adminRoutes)
+  .use(uploadRoutes)
   .get("/api/health", () => ({ status: "ok" }))
   .listen(3000);
 

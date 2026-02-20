@@ -7,9 +7,12 @@ export const user = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
+  role: text("role").notNull().default("annonceur"),
+  phone: text("phone"),
+  companyName: text("company_name"),
+  siret: text("siret"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
-  role: text("role").notNull().default("annonceur"),
 });
 
 export const session = pgTable("session", {
@@ -63,9 +66,35 @@ export const propertyTypeEnum = pgEnum("property_type", [
 
 export const propertyStatusEnum = pgEnum("property_status", [
   "brouillon",
+  "soumis",
   "publie",
+  "rejete",
   "matche",
   "archive",
+]);
+
+export const mandateTypeEnum = pgEnum("mandate_type", [
+  "simple",
+  "exclusif",
+  "semi_exclusif",
+]);
+
+export const energyClassEnum = pgEnum("energy_class", [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+]);
+
+export const fileTypeEnum = pgEnum("file_type", [
+  "photo",
+  "mandat",
+  "plan",
+  "diagnostic",
+  "autre",
 ]);
 
 // Table Propriétés (annonces)
@@ -84,9 +113,42 @@ export const property = pgTable("property", {
   latitude: numeric("latitude"),
   longitude: numeric("longitude"),
   yearBuilt: integer("year_built"),
+  // Mandat obligatoire
+  mandateType: mandateTypeEnum("mandate_type"),
+  mandateRef: text("mandate_ref"),
+  mandateDate: timestamp("mandate_date"),
+  // Caractéristiques
+  energyClass: energyClassEnum("energy_class"),
+  floor: integer("floor"),
+  parkingSpots: integer("parking_spots"),
+  accessibility: boolean("accessibility").default(false),
+  // Validation admin
+  validatedAt: timestamp("validated_at"),
+  validatedBy: text("validated_by").references(() => user.id),
+  rejectedReason: text("rejected_reason"),
+  // Relations
   ownerId: text("owner_id")
     .notNull()
     .references(() => user.id),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Table Fichiers associés aux annonces
+export const propertyFile = pgTable("property_file", {
+  id: text("id").primaryKey(),
+  propertyId: text("property_id")
+    .notNull()
+    .references(() => property.id, { onDelete: "cascade" }),
+  fileType: fileTypeEnum("file_type").notNull(),
+  fileName: text("file_name").notNull(),
+  originalName: text("original_name").notNull(),
+  mimeType: text("mime_type").notNull(),
+  size: integer("size").notNull(),
+  path: text("path").notNull(),
+  sortOrder: integer("sort_order").default(0),
+  uploadedBy: text("uploaded_by")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });

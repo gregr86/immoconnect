@@ -1,38 +1,73 @@
-import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  Link,
+  useRouterState,
+  redirect,
+  useNavigate,
+} from "@tanstack/react-router";
 import {
   LayoutDashboard,
   Building2,
-  Search,
-  MessageSquare,
-  Store,
-  Handshake,
-  CreditCard,
   Settings,
   Bell,
   Menu,
+  LogOut,
+  ShieldCheck,
+  User as UserIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { getSession, useSession, signOut } from "@/lib/auth-client";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Route = createFileRoute("/_app")({
+  beforeLoad: async () => {
+    const session = await getSession();
+    if (!session) {
+      throw redirect({ to: "/login" });
+    }
+    return { user: session.user };
+  },
   component: AppLayout,
 });
 
 const navItems = [
-  { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" },
-  { label: "Annonces", icon: Building2, to: "/listings" },
-  { label: "Recherche & Matching", icon: Search, to: "/search" },
-  { label: "Messagerie", icon: MessageSquare, to: "/messaging" },
-  { label: "Marketplace", icon: Store, to: "/marketplace" },
-  { label: "Apporteurs d'Affaires", icon: Handshake, to: "/referrals" },
-  { label: "Abonnement", icon: CreditCard, to: "/subscription" },
-  { label: "Paramètres", icon: Settings, to: "/settings" },
-] as const;
+  { label: "Tableau de bord", icon: LayoutDashboard, to: "/dashboard" as const },
+  { label: "Annonces", icon: Building2, to: "/listings" as const },
+];
 
 function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const navigate = useNavigate();
+  const { data: sessionData } = useSession();
+  const user = sessionData?.user;
+
+  const initials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "?";
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate({ to: "/login" });
+  };
+
+  const isAdmin = user?.role === "admin";
 
   return (
     <div className="flex h-screen">
@@ -73,6 +108,21 @@ function AppLayout() {
               </Link>
             );
           })}
+
+          {isAdmin && (
+            <Link
+              to="/admin/moderation"
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
+                currentPath.startsWith("/admin")
+                  ? "bg-sidebar-active text-white"
+                  : "text-white/70 hover:text-white hover:bg-white/10",
+              )}
+            >
+              <ShieldCheck className="h-5 w-5 shrink-0" />
+              {!collapsed && <span>Modération</span>}
+            </Link>
+          )}
         </nav>
       </aside>
 
@@ -84,6 +134,7 @@ function AppLayout() {
             <button
               onClick={() => setCollapsed(!collapsed)}
               className="text-foreground hover:text-primary transition-colors"
+              aria-label="Toggle sidebar"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -94,15 +145,55 @@ function AppLayout() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="relative text-foreground hover:text-primary transition-colors">
+            <button
+              className="relative text-foreground hover:text-primary transition-colors"
+              aria-label="Notifications"
+            >
               <Bell className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive text-destructive-foreground text-[10px] rounded-full flex items-center justify-center">
                 3
               </span>
             </button>
-            <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-              GR
-            </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2" aria-label="Menu utilisateur">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-sm font-bold">
+                      {initials}
+                    </AvatarFallback>
+                  </Avatar>
+                  {user?.name && (
+                    <span className="text-sm font-body font-medium text-foreground hidden md:inline">
+                      {user.name}
+                    </span>
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuLabel className="font-body">
+                  <div className="text-sm font-medium">{user?.name}</div>
+                  <div className="text-xs text-muted-foreground">{user?.email}</div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <UserIcon className="mr-2 h-4 w-4" />
+                  Mon profil
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" />
+                  Paramètres
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="text-destructive"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Se déconnecter
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 

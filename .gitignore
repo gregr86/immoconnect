@@ -30,6 +30,9 @@ bun.lockb
 # Drizzle
 drizzle/meta/
 
+# Uploads
+uploads/
+
 # Claude
 .claude/
 .grepai/

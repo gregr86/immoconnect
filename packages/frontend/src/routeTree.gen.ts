@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
+import { Route as AppListingsNewRouteImport } from './routes/_app/listings/new'
+import { Route as AppListingsPropertyIdRouteImport } from './routes/_app/listings/$propertyId'
+import { Route as AppAdminModerationRouteImport } from './routes/_app/admin/moderation'
+import { Route as AppListingsPropertyIdEditRouteImport } from './routes/_app/listings/$propertyId.edit'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -22,43 +34,131 @@ const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppListingsIndexRoute = AppListingsIndexRouteImport.update({
+  id: '/listings/',
+  path: '/listings/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppListingsNewRoute = AppListingsNewRouteImport.update({
+  id: '/listings/new',
+  path: '/listings/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppListingsPropertyIdRoute = AppListingsPropertyIdRouteImport.update({
+  id: '/listings/$propertyId',
+  path: '/listings/$propertyId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminModerationRoute = AppAdminModerationRouteImport.update({
+  id: '/admin/moderation',
+  path: '/admin/moderation',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppListingsPropertyIdEditRoute =
+  AppListingsPropertyIdEditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => AppListingsPropertyIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppRouteWithChildren
+  '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/admin/moderation': typeof AppAdminModerationRoute
+  '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
+  '/listings/new': typeof AppListingsNewRoute
+  '/listings/': typeof AppListingsIndexRoute
+  '/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AppRouteWithChildren
+  '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/admin/moderation': typeof AppAdminModerationRoute
+  '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
+  '/listings/new': typeof AppListingsNewRoute
+  '/listings': typeof AppListingsIndexRoute
+  '/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/admin/moderation': typeof AppAdminModerationRoute
+  '/_app/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
+  '/_app/listings/new': typeof AppListingsNewRoute
+  '/_app/listings/': typeof AppListingsIndexRoute
+  '/_app/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/admin/moderation'
+    | '/listings/$propertyId'
+    | '/listings/new'
+    | '/listings/'
+    | '/listings/$propertyId/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard'
-  id: '__root__' | '/_app' | '/login' | '/_app/dashboard'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/admin/moderation'
+    | '/listings/$propertyId'
+    | '/listings/new'
+    | '/listings'
+    | '/listings/$propertyId/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/login'
+    | '/register'
+    | '/_app/dashboard'
+    | '/_app/admin/moderation'
+    | '/_app/listings/$propertyId'
+    | '/_app/listings/new'
+    | '/_app/listings/'
+    | '/_app/listings/$propertyId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -73,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -80,22 +187,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/listings/': {
+      id: '/_app/listings/'
+      path: '/listings'
+      fullPath: '/listings/'
+      preLoaderRoute: typeof AppListingsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/listings/new': {
+      id: '/_app/listings/new'
+      path: '/listings/new'
+      fullPath: '/listings/new'
+      preLoaderRoute: typeof AppListingsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/listings/$propertyId': {
+      id: '/_app/listings/$propertyId'
+      path: '/listings/$propertyId'
+      fullPath: '/listings/$propertyId'
+      preLoaderRoute: typeof AppListingsPropertyIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/admin/moderation': {
+      id: '/_app/admin/moderation'
+      path: '/admin/moderation'
+      fullPath: '/admin/moderation'
+      preLoaderRoute: typeof AppAdminModerationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/listings/$propertyId/edit': {
+      id: '/_app/listings/$propertyId/edit'
+      path: '/edit'
+      fullPath: '/listings/$propertyId/edit'
+      preLoaderRoute: typeof AppListingsPropertyIdEditRouteImport
+      parentRoute: typeof AppListingsPropertyIdRoute
+    }
   }
 }
 
+interface AppListingsPropertyIdRouteChildren {
+  AppListingsPropertyIdEditRoute: typeof AppListingsPropertyIdEditRoute
+}
+
+const AppListingsPropertyIdRouteChildren: AppListingsPropertyIdRouteChildren = {
+  AppListingsPropertyIdEditRoute: AppListingsPropertyIdEditRoute,
+}
+
+const AppListingsPropertyIdRouteWithChildren =
+  AppListingsPropertyIdRoute._addFileChildren(
+    AppListingsPropertyIdRouteChildren,
+  )
+
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppAdminModerationRoute: typeof AppAdminModerationRoute
+  AppListingsPropertyIdRoute: typeof AppListingsPropertyIdRouteWithChildren
+  AppListingsNewRoute: typeof AppListingsNewRoute
+  AppListingsIndexRoute: typeof AppListingsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppAdminModerationRoute: AppAdminModerationRoute,
+  AppListingsPropertyIdRoute: AppListingsPropertyIdRouteWithChildren,
+  AppListingsNewRoute: AppListingsNewRoute,
+  AppListingsIndexRoute: AppListingsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
