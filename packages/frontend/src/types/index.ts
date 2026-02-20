@@ -284,3 +284,125 @@ export interface NotificationPreferences {
   emailPropertyStatus: boolean;
   emailNewMatch: boolean;
 }
+
+// Sprint 4 — Marketplace & Apporteurs
+
+export type ServiceCategory =
+  | "btp"
+  | "notaire"
+  | "avocat"
+  | "geometre"
+  | "architecte"
+  | "courtier"
+  | "diagnostiqueur"
+  | "assureur"
+  | "energie_durable";
+
+export type QuoteStatus = "demande" | "envoye" | "accepte" | "refuse" | "expire";
+
+export type LeadStatus =
+  | "soumis"
+  | "en_qualification"
+  | "qualifie"
+  | "accepte"
+  | "rejete"
+  | "converti";
+
+export interface PartnerProfile {
+  id: string;
+  userId: string;
+  category: ServiceCategory;
+  description: string;
+  city: string;
+  postalCode: string;
+  coverImage?: string | null;
+  yearsExperience?: number | null;
+  verified: boolean;
+  priceInfo?: string | null;
+  rating?: string | null;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email?: string;
+    companyName?: string | null;
+    image?: string | null;
+  };
+}
+
+export interface PartnerReview {
+  id: string;
+  partnerId: string;
+  rating: number;
+  comment?: string | null;
+  createdAt: string;
+  reviewerName?: string;
+  reviewerImage?: string | null;
+}
+
+export interface Quote {
+  id: string;
+  reference: string;
+  requesterId: string;
+  partnerId: string;
+  propertyId?: string | null;
+  category: ServiceCategory;
+  description: string;
+  status: QuoteStatus;
+  amount?: number | null;
+  responseMessage?: string | null;
+  pdfPath?: string | null;
+  validUntil?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  partner?: PartnerProfile;
+}
+
+export interface QuotesResponse {
+  items: Quote[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface Lead {
+  id: string;
+  reference: string;
+  submittedBy: string;
+  title: string;
+  description: string;
+  propertyType?: PropertyType | null;
+  city?: string | null;
+  surface?: string | null;
+  budget?: string | null;
+  contactName: string;
+  contactEmail: string;
+  contactPhone?: string | null;
+  assignedBrokerId?: string | null;
+  status: LeadStatus;
+  estimatedCommission?: number | null;
+  paidCommission?: number | null;
+  rejectedReason?: string | null;
+  qualifiedAt?: string | null;
+  convertedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  submitter?: { name: string; image?: string | null };
+  assignedBroker?: { id: string; name: string; image?: string | null } | null;
+}
+
+export interface LeadsResponse {
+  items: Lead[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface LeadStats {
+  totalSoumis: number;
+  enQualification: number;
+  commissionTotale: number;
+  objectifAnnuel: number;
+}

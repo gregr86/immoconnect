@@ -388,3 +388,169 @@ export const notificationPreferenceRelations = relations(notificationPreference,
     references: [user.id],
   }),
 }));
+
+// Sprint 4 — Enums
+
+export const serviceCategoryEnum = pgEnum("service_category", [
+  "btp",
+  "notaire",
+  "avocat",
+  "geometre",
+  "architecte",
+  "courtier",
+  "diagnostiqueur",
+  "assureur",
+  "energie_durable",
+]);
+
+export const quoteStatusEnum = pgEnum("quote_status", [
+  "demande",
+  "envoye",
+  "accepte",
+  "refuse",
+  "expire",
+]);
+
+export const leadStatusEnum = pgEnum("lead_status", [
+  "soumis",
+  "en_qualification",
+  "qualifie",
+  "accepte",
+  "rejete",
+  "converti",
+]);
+
+// Sprint 4 — Marketplace : Profil professionnel
+export const partnerProfile = pgTable("partner_profile", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id)
+    .unique(),
+  category: serviceCategoryEnum("category").notNull(),
+  description: text("description").notNull(),
+  city: text("city").notNull(),
+  postalCode: text("postal_code").notNull(),
+  coverImage: text("cover_image"),
+  yearsExperience: integer("years_experience"),
+  verified: boolean("verified").notNull().default(false),
+  priceInfo: text("price_info"),
+  rating: numeric("rating"),
+  reviewCount: integer("review_count").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 4 — Marketplace : Avis
+export const partnerReview = pgTable("partner_review", {
+  id: text("id").primaryKey(),
+  partnerId: text("partner_id")
+    .notNull()
+    .references(() => partnerProfile.id, { onDelete: "cascade" }),
+  reviewerId: text("reviewer_id")
+    .notNull()
+    .references(() => user.id),
+  rating: integer("rating").notNull(),
+  comment: text("comment"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Sprint 4 — Marketplace : Devis
+export const quote = pgTable("quote", {
+  id: text("id").primaryKey(),
+  reference: text("reference").notNull().unique(),
+  requesterId: text("requester_id")
+    .notNull()
+    .references(() => user.id),
+  partnerId: text("partner_id")
+    .notNull()
+    .references(() => partnerProfile.id),
+  propertyId: text("property_id").references(() => property.id),
+  category: serviceCategoryEnum("category").notNull(),
+  description: text("description").notNull(),
+  status: quoteStatusEnum("status").notNull().default("demande"),
+  amount: integer("amount"),
+  responseMessage: text("response_message"),
+  pdfPath: text("pdf_path"),
+  validUntil: timestamp("valid_until"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 4 — Apporteurs d'affaires : Leads
+export const lead = pgTable("lead", {
+  id: text("id").primaryKey(),
+  reference: text("reference").notNull().unique(),
+  submittedBy: text("submitted_by")
+    .notNull()
+    .references(() => user.id),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  propertyType: propertyTypeEnum("property_type"),
+  city: text("city"),
+  surface: text("surface"),
+  budget: text("budget"),
+  contactName: text("contact_name").notNull(),
+  contactEmail: text("contact_email").notNull(),
+  contactPhone: text("contact_phone"),
+  assignedBrokerId: text("assigned_broker_id").references(() => user.id),
+  status: leadStatusEnum("status").notNull().default("soumis"),
+  estimatedCommission: integer("estimated_commission"),
+  paidCommission: integer("paid_commission"),
+  rejectedReason: text("rejected_reason"),
+  qualifiedAt: timestamp("qualified_at"),
+  convertedAt: timestamp("converted_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sprint 4 — Relations
+
+export const partnerProfileRelations = relations(partnerProfile, ({ one, many }) => ({
+  user: one(user, {
+    fields: [partnerProfile.userId],
+    references: [user.id],
+  }),
+  reviews: many(partnerReview),
+  quotes: many(quote),
+}));
+
+export const partnerReviewRelations = relations(partnerReview, ({ one }) => ({
+  partner: one(partnerProfile, {
+    fields: [partnerReview.partnerId],
+    references: [partnerProfile.id],
+  }),
+  reviewer: one(user, {
+    fields: [partnerReview.reviewerId],
+    references: [user.id],
+  }),
+}));
+
+export const quoteRelations = relations(quote, ({ one }) => ({
+  requester: one(user, {
+    fields: [quote.requesterId],
+    references: [user.id],
+    relationName: "quoteRequester",
+  }),
+  partner: one(partnerProfile, {
+    fields: [quote.partnerId],
+    references: [partnerProfile.id],
+  }),
+  property: one(property, {
+    fields: [quote.propertyId],
+    references: [property.id],
+  }),
+}));
+
+export const leadRelations = relations(lead, ({ one }) => ({
+  submitter: one(user, {
+    fields: [lead.submittedBy],
+    references: [user.id],
+    relationName: "leadSubmitter",
+  }),
+  assignedBroker: one(user, {
+    fields: [lead.assignedBrokerId],
+    references: [user.id],
+    relationName: "leadBroker",
+  }),
+}));

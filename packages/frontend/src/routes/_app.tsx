@@ -17,6 +17,8 @@ import {
   LogOut,
   ShieldCheck,
   User as UserIcon,
+  Store,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -49,6 +51,7 @@ const navItems = [
   { label: "Recherche & Matching", icon: Search, to: "/search" as const },
   { label: "Messagerie", icon: MessageSquare, to: "/messaging" as const },
   { label: "Abonnement", icon: CreditCard, to: "/subscription" as const },
+  { label: "Marketplace", icon: Store, to: "/marketplace" as const },
 ];
 
 function AppLayout() {
@@ -74,6 +77,7 @@ function AppLayout() {
   };
 
   const isAdmin = user?.role === "admin";
+  const isApporteur = user?.role === "apporteur" || user?.role === "admin";
 
   return (
     <div className="flex h-screen">
@@ -114,6 +118,21 @@ function AppLayout() {
               </Link>
             );
           })}
+
+          {isApporteur && (
+            <Link
+              to="/leads"
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
+                currentPath.startsWith("/leads")
+                  ? "bg-sidebar-active text-white"
+                  : "text-white/70 hover:text-white hover:bg-white/10",
+              )}
+            >
+              <Users className="h-5 w-5 shrink-0" />
+              {!collapsed && <span>Apporteurs</span>}
+            </Link>
+          )}
 
           {isAdmin && (
             <Link

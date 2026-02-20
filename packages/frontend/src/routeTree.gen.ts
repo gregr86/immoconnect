@@ -17,7 +17,10 @@ import { Route as AppSubscriptionRouteImport } from './routes/_app/subscription'
 import { Route as AppSearchRouteImport } from './routes/_app/search'
 import { Route as AppMessagingRouteImport } from './routes/_app/messaging'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppMarketplaceIndexRouteImport } from './routes/_app/marketplace/index'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
+import { Route as AppLeadsIndexRouteImport } from './routes/_app/leads/index'
+import { Route as AppMarketplaceQuotesRouteImport } from './routes/_app/marketplace/quotes'
 import { Route as AppListingsNewRouteImport } from './routes/_app/listings/new'
 import { Route as AppListingsPropertyIdRouteImport } from './routes/_app/listings/$propertyId'
 import { Route as AppAdminModerationRouteImport } from './routes/_app/admin/moderation'
@@ -62,9 +65,24 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppMarketplaceIndexRoute = AppMarketplaceIndexRouteImport.update({
+  id: '/marketplace/',
+  path: '/marketplace/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppListingsIndexRoute = AppListingsIndexRouteImport.update({
   id: '/listings/',
   path: '/listings/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLeadsIndexRoute = AppLeadsIndexRouteImport.update({
+  id: '/leads/',
+  path: '/leads/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMarketplaceQuotesRoute = AppMarketplaceQuotesRouteImport.update({
+  id: '/marketplace/quotes',
+  path: '/marketplace/quotes',
   getParentRoute: () => AppRoute,
 } as any)
 const AppListingsNewRoute = AppListingsNewRouteImport.update({
@@ -100,7 +118,10 @@ export interface FileRoutesByFullPath {
   '/admin/moderation': typeof AppAdminModerationRoute
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
+  '/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/leads/': typeof AppLeadsIndexRoute
   '/listings/': typeof AppListingsIndexRoute
+  '/marketplace/': typeof AppMarketplaceIndexRoute
   '/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -114,7 +135,10 @@ export interface FileRoutesByTo {
   '/admin/moderation': typeof AppAdminModerationRoute
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
+  '/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/leads': typeof AppLeadsIndexRoute
   '/listings': typeof AppListingsIndexRoute
+  '/marketplace': typeof AppMarketplaceIndexRoute
   '/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRoutesById {
@@ -130,7 +154,10 @@ export interface FileRoutesById {
   '/_app/admin/moderation': typeof AppAdminModerationRoute
   '/_app/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/_app/listings/new': typeof AppListingsNewRoute
+  '/_app/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/_app/leads/': typeof AppLeadsIndexRoute
   '/_app/listings/': typeof AppListingsIndexRoute
+  '/_app/marketplace/': typeof AppMarketplaceIndexRoute
   '/_app/listings/$propertyId/edit': typeof AppListingsPropertyIdEditRoute
 }
 export interface FileRouteTypes {
@@ -146,7 +173,10 @@ export interface FileRouteTypes {
     | '/admin/moderation'
     | '/listings/$propertyId'
     | '/listings/new'
+    | '/marketplace/quotes'
+    | '/leads/'
     | '/listings/'
+    | '/marketplace/'
     | '/listings/$propertyId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -160,7 +190,10 @@ export interface FileRouteTypes {
     | '/admin/moderation'
     | '/listings/$propertyId'
     | '/listings/new'
+    | '/marketplace/quotes'
+    | '/leads'
     | '/listings'
+    | '/marketplace'
     | '/listings/$propertyId/edit'
   id:
     | '__root__'
@@ -175,7 +208,10 @@ export interface FileRouteTypes {
     | '/_app/admin/moderation'
     | '/_app/listings/$propertyId'
     | '/_app/listings/new'
+    | '/_app/marketplace/quotes'
+    | '/_app/leads/'
     | '/_app/listings/'
+    | '/_app/marketplace/'
     | '/_app/listings/$propertyId/edit'
   fileRoutesById: FileRoutesById
 }
@@ -244,11 +280,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/marketplace/': {
+      id: '/_app/marketplace/'
+      path: '/marketplace'
+      fullPath: '/marketplace/'
+      preLoaderRoute: typeof AppMarketplaceIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/listings/': {
       id: '/_app/listings/'
       path: '/listings'
       fullPath: '/listings/'
       preLoaderRoute: typeof AppListingsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/leads/': {
+      id: '/_app/leads/'
+      path: '/leads'
+      fullPath: '/leads/'
+      preLoaderRoute: typeof AppLeadsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/marketplace/quotes': {
+      id: '/_app/marketplace/quotes'
+      path: '/marketplace/quotes'
+      fullPath: '/marketplace/quotes'
+      preLoaderRoute: typeof AppMarketplaceQuotesRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/listings/new': {
@@ -303,7 +360,10 @@ interface AppRouteChildren {
   AppAdminModerationRoute: typeof AppAdminModerationRoute
   AppListingsPropertyIdRoute: typeof AppListingsPropertyIdRouteWithChildren
   AppListingsNewRoute: typeof AppListingsNewRoute
+  AppMarketplaceQuotesRoute: typeof AppMarketplaceQuotesRoute
+  AppLeadsIndexRoute: typeof AppLeadsIndexRoute
   AppListingsIndexRoute: typeof AppListingsIndexRoute
+  AppMarketplaceIndexRoute: typeof AppMarketplaceIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -314,7 +374,10 @@ const AppRouteChildren: AppRouteChildren = {
   AppAdminModerationRoute: AppAdminModerationRoute,
   AppListingsPropertyIdRoute: AppListingsPropertyIdRouteWithChildren,
   AppListingsNewRoute: AppListingsNewRoute,
+  AppMarketplaceQuotesRoute: AppMarketplaceQuotesRoute,
+  AppLeadsIndexRoute: AppLeadsIndexRoute,
   AppListingsIndexRoute: AppListingsIndexRoute,
+  AppMarketplaceIndexRoute: AppMarketplaceIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
