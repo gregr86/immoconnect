@@ -383,12 +383,9 @@ function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/login"
-            className="hidden text-sm font-medium text-foreground/70 hover:text-primary transition-colors md:block"
-          >
-            Connexion
-          </Link>
+          <Button variant="outline" size="sm" className="rounded-lg font-bold" asChild>
+            <Link to="/login">Connexion</Link>
+          </Button>
           <Button size="sm" className="rounded-lg font-bold" asChild>
             <a href="#waitlist">Rejoindre la waitlist</a>
           </Button>
