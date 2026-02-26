@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import { auth } from "../auth";
 
 export const authMiddleware = new Elysia({ name: "auth-middleware" }).derive(
-  { as: "scoped" },
+  { as: "global" },
   async ({ request }) => {
     const session = await auth.api.getSession({
       headers: request.headers,
@@ -57,5 +57,14 @@ export const requireApporteur = new Elysia({ name: "require-apporteur" })
     if (!["apporteur", "admin"].includes(user!.role)) {
       set.status = 403;
       return { error: "Accès réservé aux apporteurs d'affaires" };
+    }
+  });
+
+export const requirePartenaireEnergie = new Elysia({ name: "require-partenaire-energie" })
+  .use(requireAuth)
+  .onBeforeHandle({ as: "scoped" }, ({ user, set }) => {
+    if (!["partenaire_energie", "admin"].includes(user!.role)) {
+      set.status = 403;
+      return { error: "Accès réservé aux partenaires énergie" };
     }
   });

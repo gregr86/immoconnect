@@ -19,6 +19,7 @@ import {
   User as UserIcon,
   Store,
   Users,
+  Sun,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -78,6 +79,7 @@ function AppLayout() {
 
   const isAdmin = user?.role === "admin";
   const isApporteur = user?.role === "apporteur" || user?.role === "admin";
+  const isPartenaireEnergie = user?.role === "partenaire_energie" || user?.role === "admin";
 
   return (
     <div className="flex h-screen">
@@ -118,6 +120,21 @@ function AppLayout() {
               </Link>
             );
           })}
+
+          {isPartenaireEnergie && (
+            <Link
+              to="/energy"
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
+                currentPath.startsWith("/energy")
+                  ? "bg-sidebar-active text-white"
+                  : "text-white/70 hover:text-white hover:bg-white/10",
+              )}
+            >
+              <Sun className="h-5 w-5 shrink-0" />
+              {!collapsed && <span>Energie PV</span>}
+            </Link>
+          )}
 
           {isApporteur && (
             <Link

@@ -20,6 +20,7 @@ import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppMarketplaceIndexRouteImport } from './routes/_app/marketplace/index'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
 import { Route as AppLeadsIndexRouteImport } from './routes/_app/leads/index'
+import { Route as AppEnergyIndexRouteImport } from './routes/_app/energy/index'
 import { Route as AppMarketplaceQuotesRouteImport } from './routes/_app/marketplace/quotes'
 import { Route as AppListingsNewRouteImport } from './routes/_app/listings/new'
 import { Route as AppListingsPropertyIdRouteImport } from './routes/_app/listings/$propertyId'
@@ -80,6 +81,11 @@ const AppLeadsIndexRoute = AppLeadsIndexRouteImport.update({
   path: '/leads/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppEnergyIndexRoute = AppEnergyIndexRouteImport.update({
+  id: '/energy/',
+  path: '/energy/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppMarketplaceQuotesRoute = AppMarketplaceQuotesRouteImport.update({
   id: '/marketplace/quotes',
   path: '/marketplace/quotes',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
   '/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/energy/': typeof AppEnergyIndexRoute
   '/leads/': typeof AppLeadsIndexRoute
   '/listings/': typeof AppListingsIndexRoute
   '/marketplace/': typeof AppMarketplaceIndexRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/listings/new': typeof AppListingsNewRoute
   '/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/energy': typeof AppEnergyIndexRoute
   '/leads': typeof AppLeadsIndexRoute
   '/listings': typeof AppListingsIndexRoute
   '/marketplace': typeof AppMarketplaceIndexRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/_app/listings/$propertyId': typeof AppListingsPropertyIdRouteWithChildren
   '/_app/listings/new': typeof AppListingsNewRoute
   '/_app/marketplace/quotes': typeof AppMarketplaceQuotesRoute
+  '/_app/energy/': typeof AppEnergyIndexRoute
   '/_app/leads/': typeof AppLeadsIndexRoute
   '/_app/listings/': typeof AppListingsIndexRoute
   '/_app/marketplace/': typeof AppMarketplaceIndexRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/listings/$propertyId'
     | '/listings/new'
     | '/marketplace/quotes'
+    | '/energy/'
     | '/leads/'
     | '/listings/'
     | '/marketplace/'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/listings/$propertyId'
     | '/listings/new'
     | '/marketplace/quotes'
+    | '/energy'
     | '/leads'
     | '/listings'
     | '/marketplace'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/_app/listings/$propertyId'
     | '/_app/listings/new'
     | '/_app/marketplace/quotes'
+    | '/_app/energy/'
     | '/_app/leads/'
     | '/_app/listings/'
     | '/_app/marketplace/'
@@ -301,6 +313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLeadsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/energy/': {
+      id: '/_app/energy/'
+      path: '/energy'
+      fullPath: '/energy/'
+      preLoaderRoute: typeof AppEnergyIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/marketplace/quotes': {
       id: '/_app/marketplace/quotes'
       path: '/marketplace/quotes'
@@ -361,6 +380,7 @@ interface AppRouteChildren {
   AppListingsPropertyIdRoute: typeof AppListingsPropertyIdRouteWithChildren
   AppListingsNewRoute: typeof AppListingsNewRoute
   AppMarketplaceQuotesRoute: typeof AppMarketplaceQuotesRoute
+  AppEnergyIndexRoute: typeof AppEnergyIndexRoute
   AppLeadsIndexRoute: typeof AppLeadsIndexRoute
   AppListingsIndexRoute: typeof AppListingsIndexRoute
   AppMarketplaceIndexRoute: typeof AppMarketplaceIndexRoute
@@ -375,6 +395,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppListingsPropertyIdRoute: AppListingsPropertyIdRouteWithChildren,
   AppListingsNewRoute: AppListingsNewRoute,
   AppMarketplaceQuotesRoute: AppMarketplaceQuotesRoute,
+  AppEnergyIndexRoute: AppEnergyIndexRoute,
   AppLeadsIndexRoute: AppLeadsIndexRoute,
   AppListingsIndexRoute: AppListingsIndexRoute,
   AppMarketplaceIndexRoute: AppMarketplaceIndexRoute,

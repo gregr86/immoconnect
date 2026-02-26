@@ -9,6 +9,9 @@ export const user = pgTable("user", {
   emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
   role: text("role").notNull().default("annonceur"),
+  banned: boolean("banned").default(false),
+  banReason: text("ban_reason"),
+  banExpires: timestamp("ban_expires"),
   phone: text("phone"),
   companyName: text("company_name"),
   siret: text("siret"),
@@ -91,6 +94,17 @@ export const energyClassEnum = pgEnum("energy_class", [
   "G",
 ]);
 
+export const roofOrientationEnum = pgEnum("roof_orientation", [
+  "nord",
+  "sud",
+  "est",
+  "ouest",
+  "sud_est",
+  "sud_ouest",
+  "plate",
+  "inconnue",
+]);
+
 export const fileTypeEnum = pgEnum("file_type", [
   "photo",
   "mandat",
@@ -125,6 +139,10 @@ export const property = pgTable("property", {
   parkingSpots: integer("parking_spots"),
   accessibility: boolean("accessibility").default(false),
   airConditioning: boolean("air_conditioning").default(false),
+  // Énergie durable (PV)
+  roofSurface: numeric("roof_surface"),
+  parkingSurface: numeric("parking_surface"),
+  roofOrientation: roofOrientationEnum("roof_orientation"),
   // Validation admin
   validatedAt: timestamp("validated_at"),
   validatedBy: text("validated_by").references(() => user.id),

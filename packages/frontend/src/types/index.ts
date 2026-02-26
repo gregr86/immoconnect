@@ -25,6 +25,16 @@ export type MandateType = "simple" | "exclusif" | "semi_exclusif";
 
 export type EnergyClass = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 
+export type RoofOrientation =
+  | "nord"
+  | "sud"
+  | "est"
+  | "ouest"
+  | "sud_est"
+  | "sud_ouest"
+  | "plate"
+  | "inconnue";
+
 export type FileType = "photo" | "mandat" | "plan" | "diagnostic" | "autre";
 
 export type SubscriptionPlan = "decouverte" | "professionnel" | "entreprise";
@@ -72,6 +82,9 @@ export interface Property {
   parkingSpots?: number;
   accessibility?: boolean;
   airConditioning?: boolean;
+  roofSurface?: string;
+  parkingSurface?: string;
+  roofOrientation?: RoofOrientation;
   validatedAt?: string;
   validatedBy?: string;
   rejectedReason?: string;
@@ -405,4 +418,35 @@ export interface LeadStats {
   enQualification: number;
   commissionTotale: number;
   objectifAnnuel: number;
+}
+
+// Sprint 5 — Énergie Durable (PV)
+
+export interface PvBreakdown {
+  roofSurface: number;
+  parkingSurface: number;
+  orientation: number;
+  energyClass: number;
+  location: number;
+}
+
+export interface EnergyProperty extends Property {
+  pvScore: number;
+  pvLabel: string;
+  pvBreakdown: PvBreakdown;
+  photos: PropertyFile[];
+}
+
+export interface EnergyPropertiesResponse {
+  items: EnergyProperty[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface EnergyStats {
+  totalEligible: number;
+  avgScore: number;
+  excellentCount: number;
+  topCities: { city: string; count: number }[];
 }

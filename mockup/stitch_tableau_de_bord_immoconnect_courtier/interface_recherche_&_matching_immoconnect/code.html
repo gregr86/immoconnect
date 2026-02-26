@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ImmoConnect - Recherche &amp; Matching</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c3caa", // Requested Blue #3B5DA8 adapted to system primary
+                        "secondary": "#0E3A53", // Navy
+                        "accent-green": "#009984", // Success/High Match
+                        "accent-light": "#D8E8F7", // Ice Blue
+                        "background-cream": "#FDF8F3", // Cream
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#14141e",
+                        "text-main": "#121216",
+                        "text-muted": "#6a6a81",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"], // Keeping consistent with requested base
+                        "heading": ["Afacad", "sans-serif"], // Specific request for titles
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem", 
+                        "lg": "0.75rem", // Approx 12px
+                        "xl": "1.5rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Map pattern background */
+        .bg-map-pattern {
+            background-color: #e5e7eb;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main h-screen overflow-hidden flex flex-col">
+<div class="flex h-full w-full">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-white border-r border-slate-200 flex-shrink-0 hidden md:flex flex-col z-20">
+<div class="h-16 flex items-center px-6 border-b border-slate-100">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<h1 class="font-heading font-bold text-lg text-secondary leading-none">ImmoConnect</h1>
+<p class="text-xs text-text-muted">Plateforme B2B</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted hover:bg-background-light hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined text-[22px] filled">search</span>
+<span class="text-sm">Recherche</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted hover:bg-background-light hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">real_estate_agent</span>
+<span class="text-sm">Mes offres</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted hover:bg-background-light hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">group</span>
+<span class="text-sm">Clients</span>
+</a>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted hover:bg-background-light hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm">Paramètres</span>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-slate-100">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 overflow-hidden bg-cover bg-center" data-alt="Portrait of a user" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD-zOP2DBeE49NONIR7qvDYx5e7geRhopsZQJqarmaF3UD9iBf7jzeM51jJYNh_z75ykAvQsq66ZcNi2_kM5mGrUnQSSKFsPJSI1sCrstJbNkM68iPOny4mYMkCKVXD7BIbnAURcPzu7hY86Xn-52qNfdF0QjLlDF16wSF0wg4fMvw5fdmtWgE56fTb4HFeOo7HTK-TBnFj-xZgIkOgmiHlGBVCDRoF2LXA3B8FZvfm68br26ccXgKwaKdG37zVC6-FxkurE7gmCo');"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-secondary truncate">Jean Dupont</p>
+<p class="text-xs text-text-muted truncate">Consultant Senior</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 h-full bg-background-light">
+<!-- Top Header -->
+<header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+<div class="flex items-center gap-4">
+<h2 class="font-heading font-bold text-xl text-secondary">Recherche &amp; Matching</h2>
+<div class="h-6 w-px bg-slate-200 mx-2"></div>
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 rounded-lg border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-primary" placeholder="Référence, adresse..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-600 relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-white"></span>
+</button>
+<button class="px-4 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-lg shadow-sm transition-colors">
+                        Nouvelle recherche
+                    </button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Filters Panel (Left) -->
+<div class="w-[320px] bg-white border-r border-slate-200 flex flex-col h-full z-10 overflow-hidden flex-shrink-0">
+<div class="p-5 border-b border-slate-100 flex justify-between items-center">
+<h3 class="font-heading font-bold text-lg text-secondary">Filtres</h3>
+<span class="text-xs font-medium text-primary cursor-pointer hover:underline">Réinitialiser</span>
+</div>
+<div class="flex-1 overflow-y-auto p-5 space-y-6">
+<!-- Typologie -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-secondary">Typologie</label>
+<div class="relative">
+<select class="w-full pl-3 pr-10 py-2.5 rounded-lg border-slate-200 bg-background-cream text-sm text-secondary focus:border-primary focus:ring-primary appearance-none font-medium">
+<option>Bureaux</option>
+<option>Commerce</option>
+<option>Entrepôt</option>
+<option>Terrain</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none text-lg">expand_more</span>
+</div>
+</div>
+<!-- Localisation -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-secondary">Localisation</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-lg">location_on</span>
+<input class="w-full pl-9 pr-3 py-2.5 rounded-lg border-slate-200 text-sm focus:border-primary focus:ring-primary font-medium" type="text" value="Paris, 75009"/>
+</div>
+<div class="pt-2">
+<div class="flex justify-between text-xs text-text-muted mb-1">
+<span>Rayon</span>
+<span class="font-bold text-primary">+ 5 km</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary" max="50" min="0" type="range" value="5"/>
+</div>
+</div>
+<hr class="border-slate-100"/>
+<!-- Surface -->
+<div class="space-y-3">
+<label class="text-sm font-bold text-secondary flex justify-between">
+                                Surface (m²)
+                            </label>
+<div class="flex gap-2 items-center">
+<div class="relative flex-1">
+<input class="w-full px-3 py-2 rounded-lg border-slate-200 text-sm text-right focus:border-primary focus:ring-primary" type="number" value="100"/>
+<span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">Min</span>
+</div>
+<span class="text-slate-400">-</span>
+<div class="relative flex-1">
+<input class="w-full px-3 py-2 rounded-lg border-slate-200 text-sm text-right focus:border-primary focus:ring-primary" type="number" value="500"/>
+<span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-text-muted">Max</span>
+</div>
+</div>
+<div class="relative pt-2">
+<div class="h-1 bg-slate-200 rounded-full">
+<div class="absolute h-1 bg-primary rounded-full left-[10%] right-[40%]"></div>
+</div>
+<div class="absolute top-0.5 left-[10%] size-4 bg-white border-2 border-primary rounded-full shadow cursor-pointer"></div>
+<div class="absolute top-0.5 right-[40%] size-4 bg-white border-2 border-primary rounded-full shadow cursor-pointer"></div>
+</div>
+</div>
+<hr class="border-slate-100"/>
+<!-- Loyer -->
+<div class="space-y-3">
+<label class="text-sm font-bold text-secondary flex justify-between">
+                                Loyer (€/m²/an)
+                            </label>
+<div class="flex gap-2 items-center">
+<div class="relative flex-1">
+<input class="w-full px-3 py-2 rounded-lg border-slate-200 text-sm text-right focus:border-primary focus:ring-primary" placeholder="Min" type="number"/>
+</div>
+<span class="text-slate-400">-</span>
+<div class="relative flex-1">
+<input class="w-full px-3 py-2 rounded-lg border-slate-200 text-sm text-right focus:border-primary focus:ring-primary" placeholder="Max" type="number"/>
+</div>
+</div>
+</div>
+<!-- Features checkboxes -->
+<div class="space-y-3 pt-2">
+<label class="text-sm font-bold text-secondary">Caractéristiques</label>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-slate-300 text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-text-main">Accès PMR</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-text-main">Climatisation</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-slate-300 text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-text-main">Parking</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-slate-100 bg-white">
+<button class="w-full py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-md transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">search</span>
+                            Rechercher (14)
+                        </button>
+</div>
+</div>
+<!-- Right Zone (Map & List) -->
+<div class="flex-1 flex flex-col h-full min-w-0 relative">
+<!-- Top 60%: Map -->
+<div class="h-[60%] relative w-full bg-slate-100 overflow-hidden">
+<!-- Map Background Simulation -->
+<div class="absolute inset-0 bg-map-pattern opacity-60"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-100/10 pointer-events-none"></div>
+<!-- Map Controls -->
+<div class="absolute top-4 right-4 flex flex-col gap-2 z-10">
+<button class="size-10 bg-white rounded-lg shadow-md flex items-center justify-center text-secondary hover:bg-slate-50 transition-colors" title="Zoom In">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-10 bg-white rounded-lg shadow-md flex items-center justify-center text-secondary hover:bg-slate-50 transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="h-2"></div>
+<button class="size-10 bg-white rounded-lg shadow-md flex items-center justify-center text-primary hover:bg-slate-50 transition-colors" title="Dessiner zone">
+<span class="material-symbols-outlined">draw</span>
+</button>
+<button class="size-10 bg-white rounded-lg shadow-md flex items-center justify-center text-secondary hover:bg-slate-50 transition-colors" title="Calques">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<!-- Pins -->
+<!-- High Match (Green) -->
+<div class="absolute top-[30%] left-[40%] transform -translate-x-1/2 -translate-y-full cursor-pointer group z-10">
+<div class="bg-accent-green text-white px-2 py-1 rounded-lg shadow-lg font-bold text-xs mb-1 group-hover:scale-110 transition-transform whitespace-nowrap">98% Match</div>
+<div class="flex justify-center">
+<span class="material-symbols-outlined text-4xl text-accent-green drop-shadow-md">location_on</span>
+</div>
+</div>
+<!-- High Match (Green) 2 -->
+<div class="absolute top-[45%] left-[55%] transform -translate-x-1/2 -translate-y-full cursor-pointer group z-10">
+<div class="size-4 bg-accent-green rounded-full shadow-lg ring-2 ring-white group-hover:scale-125 transition-transform"></div>
+</div>
+<!-- Med Match (Blue) -->
+<div class="absolute top-[25%] left-[60%] transform -translate-x-1/2 -translate-y-full cursor-pointer group z-0 hover:z-20">
+<div class="bg-primary text-white px-2 py-1 rounded-lg shadow-lg font-bold text-xs mb-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">75% Match</div>
+<div class="flex justify-center">
+<span class="material-symbols-outlined text-4xl text-primary drop-shadow-md">location_on</span>
+</div>
+</div>
+<!-- Low Match (Gray) -->
+<div class="absolute top-[60%] left-[30%] transform -translate-x-1/2 -translate-y-full cursor-pointer group z-0">
+<div class="flex justify-center">
+<span class="material-symbols-outlined text-3xl text-slate-400 drop-shadow-sm">location_on</span>
+</div>
+</div>
+</div>
+<!-- Bottom 40%: Results List -->
+<div class="h-[40%] bg-background-light flex flex-col border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+<!-- List Header -->
+<div class="px-6 py-3 bg-white border-b border-slate-100 flex justify-between items-center flex-shrink-0">
+<p class="font-bold text-secondary text-sm">14 résultats trouvés</p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-text-muted">Trier par:</span>
+<select class="text-sm border-none bg-background-light rounded-lg py-1.5 pl-3 pr-8 focus:ring-0 font-medium text-secondary cursor-pointer">
+<option>Pertinence</option>
+<option>Loyer croissant</option>
+<option>Surface décroissante</option>
+</select>
+</div>
+</div>
+<!-- Scrollable Cards -->
+<div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+<!-- Card 1 (High Match) -->
+<div class="group bg-white rounded-xl p-3 shadow-sm border border-slate-100 hover:shadow-md hover:border-accent-green/30 transition-all flex gap-4 items-center cursor-pointer">
+<!-- Image -->
+<div class="w-32 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern office interior with large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyKpQXQBwSZFySO3Dj5rrh5v0iqUGKHU9eUZTMHGawMMkaqFWO4etO0jmEIXb2oY_irdcy-SuunkoV7dbtPMFbnFxkDHRUPZWvcpGDnmi0t3DSoDoMkLuv76sOSoIgHoMXra11s4CbiELnLt1QWVoVlOl3O0EY18bRD6U5_MiY8AWdiO1ahZE4snVqnR8mFf0sJc5kmLX49RlqH42RMHkxuB_djT6YKWB4FVUP-lYm9oldymVMm1oDue-rkNv7B3wBzRn755-k6qg"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-1.5 py-0.5 rounded text-[10px] font-bold text-secondary uppercase tracking-wider">Bureau</div>
+</div>
+<!-- Content -->
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<h4 class="font-heading font-bold text-lg text-secondary truncate group-hover:text-primary transition-colors">Haussmannien - Opéra</h4>
+<p class="text-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Paris 9ème, 75009
+                                    </p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">square_foot</span>
+                                            240 m²
+                                        </div>
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">euro</span>
+                                            12 000 €/mois
+                                        </div>
+</div>
+</div>
+<!-- Matching Score -->
+<div class="pr-2 flex flex-col items-center gap-1">
+<div class="relative size-14 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-accent-green" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="92, 100" stroke-width="3"></path>
+</svg>
+<span class="absolute text-sm font-bold text-accent-green">92%</span>
+</div>
+<span class="text-[10px] font-medium text-text-muted uppercase">Excellent</span>
+</div>
+</div>
+<!-- Card 2 (Medium Match) -->
+<div class="group bg-white rounded-xl p-3 shadow-sm border border-slate-100 hover:shadow-md hover:border-primary/30 transition-all flex gap-4 items-center cursor-pointer">
+<!-- Image -->
+<div class="w-32 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bright co-working space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeRHFpCVWaeNYHUQU9ZpPj25N7-bawrdqx8SKTVNpwapHGMLYvm9VJVFslUDuxcyqQOqCRJ9AVGyQzk_0Dmic7qM7nXxyf4VauTe-nbajeGPNogXojDU2QCP-MdTSFaSlkdUrJO3UrR9pCQIqBF59ScILFHHfwNf9H7jN1nqlHTGpPo4CGa-ciAt9HrJdECxRojvBBQq5HN1WW5a7fKtJUQDIhL1qjeJT8xmQouYhlUZmu8h5YBAvxUtVIdoiJz4iF-1UqoLVdD68"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-1.5 py-0.5 rounded text-[10px] font-bold text-secondary uppercase tracking-wider">Coworking</div>
+</div>
+<!-- Content -->
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<h4 class="font-heading font-bold text-lg text-secondary truncate group-hover:text-primary transition-colors">Espace Saint-Lazare</h4>
+<p class="text-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Paris 8ème, 75008
+                                    </p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">square_foot</span>
+                                            180 m²
+                                        </div>
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">euro</span>
+                                            9 500 €/mois
+                                        </div>
+</div>
+</div>
+<!-- Matching Score -->
+<div class="pr-2 flex flex-col items-center gap-1">
+<div class="relative size-14 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="78, 100" stroke-width="3"></path>
+</svg>
+<span class="absolute text-sm font-bold text-primary">78%</span>
+</div>
+<span class="text-[10px] font-medium text-text-muted uppercase">Bon</span>
+</div>
+</div>
+<!-- Card 3 (High Match) -->
+<div class="group bg-white rounded-xl p-3 shadow-sm border border-slate-100 hover:shadow-md hover:border-accent-green/30 transition-all flex gap-4 items-center cursor-pointer">
+<!-- Image -->
+<div class="w-32 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern building facade with glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2lkK_hQ3kuqLzmEnCJVNCR9-s3xpKzPu013ROj_nUkt78BFAxJoApRtuFQD2pi9fSssPWY_Bm0CfKPvVe-BuO-7Pz-nvCH2o-Zh0tzeYKKstxJYt45HFOqLmyCmps87zYVjPUzrLrEoSuKhbuYDGB_MzPwoOXvY5I7Qj6ZJp38mlSZfJ-j72x0mLKsxaj4eyKpHgowPwXMabhqmQ0DBLI7Ze26t2YkYsLXmzo8agTDEjc4BcXNJ2HRCmwoepsWfpLHT4zpWIBKG4"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-1.5 py-0.5 rounded text-[10px] font-bold text-secondary uppercase tracking-wider">Bureau</div>
+</div>
+<!-- Content -->
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<h4 class="font-heading font-bold text-lg text-secondary truncate group-hover:text-primary transition-colors">Immeuble Le Central</h4>
+<p class="text-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Paris 2ème, 75002
+                                    </p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">square_foot</span>
+                                            310 m²
+                                        </div>
+<div class="flex items-center gap-1.5 bg-background-light px-2 py-1 rounded text-xs font-medium text-secondary">
+<span class="material-symbols-outlined text-[14px]">euro</span>
+                                            15 800 €/mois
+                                        </div>
+</div>
+</div>
+<!-- Matching Score -->
+<div class="pr-2 flex flex-col items-center gap-1">
+<div class="relative size-14 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-accent-green" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="88, 100" stroke-width="3"></path>
+</svg>
+<span class="absolute text-sm font-bold text-accent-green">88%</span>
+</div>
+<span class="text-[10px] font-medium text-text-muted uppercase">Très bon</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

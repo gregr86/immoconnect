@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fiche Bien Détaillée - ImmoConnect</title>
+<!-- Google Fonts: Space Grotesk for body, Noto Sans for backup, and adding Afacad as requested -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;family=Afacad:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c5faa", // Blue requested as #3B5DA8, closest tailwind match adjusted
+                        "navy": "#0E3A53",
+                        "ice-blue": "#D8E8F7",
+                        "teal": "#009984",
+                        "cream": "#FDF8F3",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#14171e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "heading": ["Afacad", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem", 
+                        "lg": "0.75rem", // 12px
+                        "xl": "1.5rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body antialiased text-navy">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="bg-white flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f2f4] px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-navy">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-[32px]">apartment</span>
+</div>
+<h2 class="text-navy text-xl font-heading font-bold leading-tight tracking-[-0.015em]">ImmoConnect</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+<div class="text-[#6a7181] flex border-none bg-[#f1f2f4] items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-navy focus:outline-0 focus:ring-0 border-none bg-[#f1f2f4] focus:border-none h-full placeholder:text-[#6a7181] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Rechercher..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9 hidden lg:flex">
+<a class="text-navy text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Recherche</a>
+<a class="text-navy text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Mes offres</a>
+<a class="text-navy text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Mon espace</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-navy text-white text-sm font-bold leading-normal hover:bg-opacity-90 transition-colors">
+<span class="truncate">Déposer une annonce</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-R90QtqC7XGguY1jWiRQ1L5lGKXO8yg7quiGFPaYTlQcNOGvZrdLI_-4GC3p0tGBkFgKQZNpml2anBbSiJjnuEytscGurinScd6YEtAD8HoHfJhmvafwJ44_6e8AZW-JweTpO9TubYarwO9MqZnsixuzl6rM9H6e__dJU1WZOYaNeG32alDbsn5Jk0X7OtFj9Y59HCXaA1nc1xpXTIuL9xcAu1ee5-SpaVlzhU3XEOdFphBIICuik3--11CiCHkE6xQtPES5taEA");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="flex-1 flex flex-col">
+<!-- Hero Section / Carousel -->
+<div class="relative w-full h-[500px] bg-gray-200 group overflow-hidden">
+<!-- Main Image -->
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-105" data-alt="Modern spacious office interior with glass walls and natural light" style="background-image: linear-gradient(to bottom, rgba(14, 58, 83, 0.1), rgba(14, 58, 83, 0.4)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXpC3ppg29bO_x6KHCI02unejjkFkr1KtGDuwhTasDXv-tAs_54kWqC9_gxxytZ3Jb2KT-O5FOZLytYxXLRIRgBi1rL8n-43RYCN1SI9cBxcERwMc53QY_qewUmE0m_T9iGH2CDlO8-BrQ4RCuy6HpGlUR8xZn6tk_76_9E1d8uqGQX1LMEGwTZBfu4YyHQH-PdraMFEmsABN7212neQ_2zN4aHZOgHmOwkxFNv2sHsZ0xgRDMciXFFgEyiTWKN7A-6nHd7xNT1O4');">
+</div>
+<!-- Navigation Arrows -->
+<button class="absolute top-1/2 left-8 -translate-y-1/2 bg-white/80 hover:bg-white text-navy p-3 rounded-full backdrop-blur-sm shadow-lg transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="absolute top-1/2 right-8 -translate-y-1/2 bg-white/80 hover:bg-white text-navy p-3 rounded-full backdrop-blur-sm shadow-lg transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<!-- Dots -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
+<div class="w-3 h-3 rounded-full bg-white shadow-sm cursor-pointer"></div>
+<div class="w-3 h-3 rounded-full bg-white/50 hover:bg-white shadow-sm cursor-pointer transition-colors"></div>
+<div class="w-3 h-3 rounded-full bg-white/50 hover:bg-white shadow-sm cursor-pointer transition-colors"></div>
+<div class="w-3 h-3 rounded-full bg-white/50 hover:bg-white shadow-sm cursor-pointer transition-colors"></div>
+</div>
+<!-- Matching Score Badge -->
+<div class="absolute top-8 right-8 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-teal/20 flex flex-col items-center animate-fade-in-down">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Matching Score</span>
+<div class="flex items-center gap-2">
+<div class="relative size-12">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-current text-gray-200" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-current text-teal" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="5" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+<span class="text-sm font-bold text-teal">95%</span>
+</div>
+</div>
+</div>
+<span class="text-xs font-medium text-teal mt-1">Excellent</span>
+</div>
+<!-- Breadcrumbs overlay -->
+<div class="absolute top-8 left-10 flex items-center gap-2 text-white/90 text-sm font-medium drop-shadow-md">
+<a class="hover:underline" href="#">Accueil</a>
+<span class="material-symbols-outlined text-base">chevron_right</span>
+<a class="hover:underline" href="#">Paris</a>
+<span class="material-symbols-outlined text-base">chevron_right</span>
+<span class="text-white">Bureaux 8ème</span>
+</div>
+</div>
+<!-- Two Column Layout -->
+<div class="max-w-[1280px] mx-auto w-full px-6 py-8 flex flex-col lg:flex-row gap-8">
+<!-- Left Column (Content) - 65% -->
+<div class="flex-1 lg:w-[65%] space-y-8">
+<!-- Header Info -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h1 class="font-heading text-navy text-[32px] font-bold leading-tight mb-2">Bureaux Haussmanniens Prestigieux - Paris 8ème</h1>
+<p class="text-gray-500 text-lg">Réf. #PAR-08-4521 • Mis à jour il y a 2 jours</p>
+</div>
+<button class="text-gray-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-3xl">favorite</span>
+</button>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+<div class="bg-ice-blue/50 rounded-lg p-4 flex flex-col items-start gap-1">
+<div class="flex items-center gap-2 text-navy/70 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">square_foot</span>
+                                    Surface
+                                </div>
+<span class="text-navy text-xl font-bold font-heading">450 m²</span>
+</div>
+<div class="bg-ice-blue/50 rounded-lg p-4 flex flex-col items-start gap-1">
+<div class="flex items-center gap-2 text-navy/70 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">payments</span>
+                                    Loyer
+                                </div>
+<span class="text-navy text-xl font-bold font-heading">850 €<span class="text-sm font-normal text-gray-500">/m²/an</span></span>
+</div>
+<div class="bg-ice-blue/50 rounded-lg p-4 flex flex-col items-start gap-1">
+<div class="flex items-center gap-2 text-navy/70 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+                                    Disponibilité
+                                </div>
+<span class="text-teal text-xl font-bold font-heading">Immédiate</span>
+</div>
+<div class="bg-ice-blue/50 rounded-lg p-4 flex flex-col items-start gap-1">
+<div class="flex items-center gap-2 text-navy/70 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">receipt_long</span>
+                                    Charges
+                                </div>
+<span class="text-navy text-xl font-bold font-heading">55 €<span class="text-sm font-normal text-gray-500">/m²/an</span></span>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<h3 class="font-heading text-xl font-bold text-navy mb-4">À propos de ce bien</h3>
+<div class="prose prose-slate text-gray-600 font-display leading-relaxed max-w-none">
+<p class="mb-4">
+                                Situé au cœur du Triangle d'Or, dans un immeuble haussmannien de très grand standing avec gardien et parties communes prestigieuses. Ce plateau de bureaux de 450 m², entièrement rénové par un architecte, offre des prestations exceptionnelles alliant le charme de l'ancien (parquet, moulures, cheminées) et le confort moderne (climatisation, câblage RJ45 cat.6, fibre optique).
+                            </p>
+<p class="mb-4">
+                                L'espace se compose d'une belle galerie d'entrée, d'un grand open-space modulable, de 5 bureaux de direction, d'une salle de réunion pour 12 personnes, d'une cuisine aménagée et d'un espace détente. Idéal pour un siège social ou un cabinet d'avocats.
+                            </p>
+<h4 class="text-navy font-bold text-lg mt-6 mb-2">Prestations techniques :</h4>
+<ul class="list-disc pl-5 space-y-1">
+<li>Climatisation réversible</li>
+<li>Contrôle d'accès par badge</li>
+<li>Ascenseur PMR</li>
+<li>Archives en sous-sol (30 m²)</li>
+<li>Parkings disponibles à proximité</li>
+</ul>
+</div>
+</div>
+<!-- Tabs Section -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+<!-- Tab Headers -->
+<div class="flex border-b border-gray-100">
+<button class="flex-1 px-6 py-4 text-center text-primary font-bold border-b-2 border-primary bg-primary/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">folder_open</span>
+                                Documents
+                            </button>
+<button class="flex-1 px-6 py-4 text-center text-gray-500 hover:text-navy font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">timeline</span>
+                                Timeline
+                            </button>
+<button class="flex-1 px-6 py-4 text-center text-gray-500 hover:text-navy font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">mail</span>
+                                Messagerie
+                            </button>
+</div>
+<!-- Active Tab Content: Documents -->
+<div class="p-6">
+<h4 class="text-sm uppercase tracking-wider text-gray-400 font-bold mb-4">Mandat &amp; Juridique</h4>
+<div class="space-y-3">
+<!-- Doc Item 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all group">
+<div class="flex items-center gap-4">
+<div class="bg-red-50 text-red-500 p-2 rounded-lg">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-navy font-medium">Mandat_exclusif_2024.pdf</p>
+<p class="text-xs text-gray-400">Ajouté le 12 Oct 2023 • 2.4 MB</p>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Doc Item 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all group">
+<div class="flex items-center gap-4">
+<div class="bg-blue-50 text-blue-500 p-2 rounded-lg">
+<span class="material-symbols-outlined">article</span>
+</div>
+<div>
+<p class="text-navy font-medium">Diagnostic_Performance_Energétique.pdf</p>
+<p class="text-xs text-gray-400">Ajouté le 10 Oct 2023 • 1.8 MB</p>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<h4 class="text-sm uppercase tracking-wider text-gray-400 font-bold mb-4 mt-8">Plans &amp; Techniques</h4>
+<div class="space-y-3">
+<!-- Doc Item 3 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all group">
+<div class="flex items-center gap-4">
+<div class="bg-yellow-50 text-yellow-600 p-2 rounded-lg">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<div>
+<p class="text-navy font-medium">Plan_RDC_Architecte.dwg</p>
+<p class="text-xs text-gray-400">Ajouté le 15 Oct 2023 • 12 MB</p>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Doc Item 4 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all group">
+<div class="flex items-center gap-4">
+<div class="bg-red-50 text-red-500 p-2 rounded-lg">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-navy font-medium">Plan_Masse.pdf</p>
+<p class="text-xs text-gray-400">Ajouté le 15 Oct 2023 • 1.1 MB</p>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Sidebar) - 35% -->
+<div class="flex-1 lg:w-[35%] space-y-6">
+<!-- Map Card -->
+<div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+<div class="relative w-full h-64 rounded-lg overflow-hidden bg-gray-100 mb-4">
+<!-- Static Map Placeholder -->
+<div class="w-full h-full bg-cover bg-center" data-location="Paris map view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDDYEHcUeqxmar5RcMbOf_I5Jc-ACKOV-w2NduKkjNzxeBrdGWWl3qj62RY88eALFs7BPeeMxg5pDoB9l8hooIMGz7jD2hhDUXdo_ek7GM6GhqgQ82sFIVQl_KE4wH50RXebMAxcNLqovJObHCvlV7uMUfJf_qVvC6bHU2O3n3OJqvHe88ulU88orOL9c90okIf5zwBbKFFxW0nMnr6Af6733YNEo8TLjmZwM_kQDm4HVweSC0kOk-1U13t7au9CH-8JCB20HN4pb0');">
+<div class="w-full h-full bg-navy/10 flex items-center justify-center relative">
+<!-- Map Pin -->
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex items-center justify-center">
+<div class="animate-ping absolute inline-flex h-12 w-12 rounded-full bg-primary opacity-75"></div>
+<div class="relative inline-flex rounded-full h-4 w-4 bg-primary border-2 border-white"></div>
+<div class="absolute bottom-6 bg-white px-3 py-1 rounded shadow-lg text-xs font-bold whitespace-nowrap text-navy">
+                                                12 Av. de Friedland
+                                            </div>
+</div>
+</div>
+</div>
+</div>
+<button class="absolute bottom-3 right-3 bg-white p-2 rounded shadow text-gray-600 hover:text-primary">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">location_on</span>
+<div>
+<h4 class="font-bold text-navy text-lg leading-tight">12 Avenue de Friedland</h4>
+<p class="text-gray-500">75008 Paris, France</p>
+<a class="text-primary text-sm font-medium mt-1 inline-block hover:underline" href="#">Voir dans Google Maps</a>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-gray-100 flex gap-2 overflow-x-auto pb-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-xs font-medium text-gray-600 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">directions_subway</span> M1 George V
+                             </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-xs font-medium text-gray-600 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">directions_bus</span> Bus 52, 22
+                             </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-xs font-medium text-gray-600 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">local_parking</span> Parking Public
+                             </span>
+</div>
+</div>
+<!-- Broker Contact Card -->
+<div class="bg-cream rounded-lg p-6 shadow-sm border border-orange-100/50 relative overflow-hidden">
+<!-- Decorative bg element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-orange-100 rounded-full blur-3xl opacity-50 -mr-10 -mt-10"></div>
+<h3 class="font-heading font-bold text-navy text-lg mb-6 relative z-10">Contact Commercial</h3>
+<div class="flex items-center gap-4 mb-6 relative z-10">
+<div class="size-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+<img alt="Portrait of Jean Dupont, Real Estate Broker" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaDNsL59F8M06SCQykiUBsrypEY1g3-kxbCQJZ6Zi6TT7IW7Q4WC4a9bbmIkAjFqMNJGO-Lw7sY99M3cNXp_6qulJ0eh3bn4-O1qfVpPNsWTGQXfJ4CrFMQU6zKAJ9nnoWj7hP2z_nCgbcoZdmhl9BzQyiz9Tv5Yy0kmAYKoeTMdIa_Jz58fkStJuNasWB5ouqppR61Wdp7C4Eq-yUbUTJuz53og4HEzC_gk4w5a-njGyFHp_kfp5EJvMGM4NxS4usmX4AEYtijLo"/>
+</div>
+<div>
+<h4 class="font-bold text-navy text-lg leading-none">Jean Dupont</h4>
+<p class="text-primary font-medium text-sm mt-1">Consultant Senior</p>
+<p class="text-gray-500 text-sm">ImmoConnect Agency Paris</p>
+</div>
+</div>
+<div class="space-y-3 relative z-10">
+<div class="flex items-center gap-3 text-navy/80">
+<div class="bg-white p-2 rounded-full shadow-sm text-primary">
+<span class="material-symbols-outlined text-sm">call</span>
+</div>
+<span class="font-medium">+33 1 45 89 23 11</span>
+</div>
+<div class="flex items-center gap-3 text-navy/80">
+<div class="bg-white p-2 rounded-full shadow-sm text-primary">
+<span class="material-symbols-outlined text-sm">mail</span>
+</div>
+<span class="font-medium">j.dupont@immoconnect.fr</span>
+</div>
+</div>
+<button class="w-full mt-8 bg-primary hover:bg-[#2b4c91] text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 relative z-10">
+                            Contacter
+                            <span class="material-symbols-outlined">send</span>
+</button>
+<button class="w-full mt-3 bg-white hover:bg-gray-50 text-navy font-bold py-3 px-4 rounded-lg border border-gray-200 transition-colors flex items-center justify-center gap-2 relative z-10">
+                            Prendre Rendez-vous
+                        </button>
+</div>
+<!-- Quick Stats / Actions -->
+<div class="bg-navy text-white rounded-lg p-6 shadow-sm relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-heading font-bold text-lg mb-4">Statut du dossier</h3>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-full bg-white/20 rounded-full h-2">
+<div class="bg-teal h-2 rounded-full" style="width: 40%"></div>
+</div>
+<span class="text-sm font-medium whitespace-nowrap">40% Complété</span>
+</div>
+<p class="text-sm text-white/80 mb-4">Il manque 2 documents pour finaliser votre offre sur ce bien.</p>
+<a class="text-teal font-bold text-sm hover:underline flex items-center gap-1" href="#">
+                                Compléter mon dossier
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white border-t border-gray-100 py-8 mt-12">
+<div class="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+<p>© 2024 ImmoConnect. Tous droits réservés.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-navy" href="#">Mentions Légales</a>
+<a class="hover:text-navy" href="#">Confidentialité</a>
+<a class="hover:text-navy" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

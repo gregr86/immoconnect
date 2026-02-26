@@ -184,6 +184,47 @@ export function getQuoteStatusLabel(status: string): string {
   return labels[status] || status;
 }
 
+// --- Énergie Durable (PV) ---
+
+const ROOF_ORIENTATION_LABELS: Record<string, string> = {
+  nord: "Nord",
+  sud: "Sud",
+  est: "Est",
+  ouest: "Ouest",
+  sud_est: "Sud-Est",
+  sud_ouest: "Sud-Ouest",
+  plate: "Plate (toiture terrasse)",
+  inconnue: "Inconnue",
+};
+
+export function getRoofOrientationLabel(orientation: string): string {
+  return ROOF_ORIENTATION_LABELS[orientation] || orientation;
+}
+
+export function getPvPotentialColor(score: number): string {
+  if (score >= 80) return "#009984";
+  if (score >= 50) return "#3B5DA8";
+  if (score >= 30) return "#D97706";
+  return "#999999";
+}
+
+export function getPvPotentialColorClasses(score: number): {
+  bgClass: string;
+  textClass: string;
+} {
+  if (score >= 80) return { bgClass: "bg-success/10", textClass: "text-success" };
+  if (score >= 50) return { bgClass: "bg-primary/10", textClass: "text-primary" };
+  if (score >= 30) return { bgClass: "bg-amber-100", textClass: "text-amber-700" };
+  return { bgClass: "bg-muted", textClass: "text-muted-foreground" };
+}
+
+export function getPvPotentialLabel(score: number): string {
+  if (score >= 80) return "Excellent";
+  if (score >= 50) return "Bon";
+  if (score >= 30) return "Modéré";
+  return "Faible";
+}
+
 export function getQuoteStatusStyle(status: string): {
   bgClass: string;
   textClass: string;

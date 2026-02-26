@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ImmoConnect - Recherche &amp; Matching</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Afacad:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3B5DA8", // Blue as requested
+                        "secondary": "#0E3A53", // Navy
+                        "accent-green": "#009984", // Green
+                        "background-light": "#FDF8F3", // Cream
+                        "background-dark": "#14171e",
+                        "ice-blue": "#D8E8F7",
+                    },
+                    fontFamily: {
+                        "display": ["Afacad", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "12px", 
+                        "xl": "1.5rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #3B5DA8;
+            cursor: pointer;
+            margin-top: -6px; 
+            box-shadow: 0 0 0 2px white;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #dddfe3;
+            border-radius: 2px;
+        }
+        
+        .map-pin {
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Scrollbar styling for the results list */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-slate-100 antialiased overflow-hidden h-screen">
+<div class="flex h-full w-full">
+<!-- Left Sidebar -->
+<aside class="w-64 flex-shrink-0 flex flex-col bg-white border-r border-slate-200 z-20 h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-sm" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDaZPcPtZJESn5pi3BhkyIORybIt36_jFKb6yoNjYZp7IXVT8-iUSokPAWZ8hiXRU5HehC1MCzFqHTkM74OHSsvsjlkYEqx2TaLjaIIekC-GqKiSch09l8is7JBSS_BB_DTrvSzkOgeMOlRr8Tgg3YYDgbQtH343rGnQTMY2eZ5pOxr88DwmlekXcvI-km-pBKmcd1mLPT8a1j5Mcd3tpkJf32Yfb7JZEDC8evtiMDFYRRH0i3eSpCPek9odr09RWIEkK-wUBgVrKI");'></div>
+<div class="flex flex-col">
+<h1 class="text-secondary text-base font-display font-bold leading-tight">ImmoConnect</h1>
+<p class="text-slate-500 text-xs font-normal">Portail B2B</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 px-3 mt-4 flex-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-ice-blue/50 text-primary group" href="#">
+<span class="material-symbols-outlined fill-current">search</span>
+<span class="text-sm font-medium">Recherche</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">folder_open</span>
+<span class="text-sm font-medium">Mes offres</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">groups</span>
+<span class="text-sm font-medium">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">settings</span>
+<span class="text-sm font-medium">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-100">
+<button class="flex items-center gap-2 text-slate-500 hover:text-red-500 transition-colors text-sm font-medium w-full px-3 py-2">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                    Déconnexion
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex flex-1 h-full overflow-hidden bg-background-light">
+<!-- Filter Panel -->
+<div class="w-[320px] flex-shrink-0 bg-white border-r border-slate-200 h-full flex flex-col z-10 shadow-sm overflow-y-auto custom-scroll">
+<div class="p-5 border-b border-slate-100">
+<h2 class="font-display font-bold text-xl text-secondary">Filtres</h2>
+</div>
+<div class="p-5 flex flex-col gap-6">
+<!-- Typologie -->
+<div class="flex flex-col gap-2">
+<label class="text-secondary text-sm font-semibold">Typologie</label>
+<div class="relative">
+<select class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary focus:border-primary block p-3 pr-10 font-body">
+<option selected="">Bureau</option>
+<option>Local commercial</option>
+<option>Entrepôt</option>
+<option>Terrain</option>
+<option>Autre</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-slate-500 text-[20px]">keyboard_arrow_down</span>
+</div>
+</div>
+<!-- Localisation -->
+<div class="flex flex-col gap-2">
+<label class="text-secondary text-sm font-semibold">Localisation</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">location_on</span>
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary focus:border-primary block pl-10 p-3 font-body" placeholder="Ville, Code postal..." type="text" value="Paris, France"/>
+</div>
+<div class="mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs text-slate-500">Rayon</span>
+<span class="text-xs font-semibold text-primary">15 km</span>
+</div>
+<input class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer" max="50" min="1" type="range" value="15"/>
+</div>
+</div>
+<hr class="border-slate-100"/>
+<!-- Surface -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="text-secondary text-sm font-semibold">Surface (m²)</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg p-2 text-center" placeholder="Min" type="number" value="100"/>
+<span class="text-slate-400">-</span>
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg p-2 text-center" placeholder="Max" type="number" value="500"/>
+</div>
+<div class="relative pt-2">
+<input class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer" max="2000" min="0" type="range" value="500"/>
+<div class="absolute top-2 left-0 w-1/4 h-1 bg-primary rounded-l-lg pointer-events-none"></div>
+</div>
+</div>
+<!-- Loyer -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="text-secondary text-sm font-semibold">Loyer (€/mois)</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg p-2 text-center" placeholder="Min" type="number" value="2000"/>
+<span class="text-slate-400">-</span>
+<input class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg p-2 text-center" placeholder="Max" type="number" value="8000"/>
+</div>
+<div class="relative pt-2">
+<input class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer" max="50000" min="0" type="range" value="8000"/>
+<div class="absolute top-2 left-0 w-1/6 h-1 bg-primary rounded-l-lg pointer-events-none"></div>
+</div>
+</div>
+<div class="mt-auto pt-6 flex flex-col gap-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">search</span>
+                            Rechercher
+                        </button>
+<button class="w-full bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 font-medium py-3 px-4 rounded-lg transition-all">
+                            Réinitialiser
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Zone (Split View) -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- Map Zone (Top 60%) -->
+<div class="h-[60%] relative bg-slate-100 border-b border-slate-200 group">
+<!-- Map Background Placeholder -->
+<div class="w-full h-full bg-cover bg-center opacity-80" data-location="Paris map background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfRN4a8UmWt34pWlhFsTmbLlrHN7Wbt7pOGQ9tKWOEaJL05BtMm5qb59xExfiNcGAk-Zkg1yMH0yvhXTybSYga88HKpmjjDm2boXZPwd_2T0BZB-E2omR1XDATFou8YbCF5c1kJ-rXBHjiuOnGYYuQ_kOSYRN30WK9fvfRj53QYFfoFhGy6xEyzwx1er2N6D6FXEOyWue72r-u14uT-57U7pjdO95O4NeSQ9gE-9Rc1bRQU5_fx35wQ_DdfRpL87vhLmNAU0YXp4Y');">
+<!-- Fallback for no API key usually, just a visual placeholder div pattern -->
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/city-fields.png')] opacity-30"></div>
+</div>
+<!-- Map Controls -->
+<div class="absolute top-4 right-4 flex flex-col gap-2">
+<button class="bg-white p-2 rounded-lg shadow-md hover:bg-slate-50 text-secondary">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="bg-white p-2 rounded-lg shadow-md hover:bg-slate-50 text-secondary">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="h-2"></div>
+<button class="bg-white p-2 rounded-lg shadow-md hover:bg-slate-50 text-secondary" title="Dessiner une zone">
+<span class="material-symbols-outlined">draw</span>
+</button>
+<button class="bg-white p-2 rounded-lg shadow-md hover:bg-slate-50 text-secondary">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Map Pins -->
+<!-- High Match (Green) -->
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer group/pin hover:z-50">
+<div class="relative flex flex-col items-center">
+<div class="bg-white px-3 py-1.5 rounded-lg shadow-lg mb-2 opacity-0 group-hover/pin:opacity-100 transition-opacity absolute bottom-full whitespace-nowrap z-50 pointer-events-none">
+<p class="text-xs font-bold text-secondary">Bureau Haussmann</p>
+<p class="text-[10px] text-slate-500">120 m² • 4,500€</p>
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+</div>
+<span class="material-symbols-outlined text-accent-green text-[48px] map-pin drop-shadow-lg">location_on</span>
+<div class="w-3 h-1.5 bg-black/20 rounded-[50%] blur-[1px] -mt-2"></div>
+</div>
+</div>
+<!-- Medium Match (Blue) -->
+<div class="absolute top-[45%] left-[40%] cursor-pointer group/pin hover:z-50">
+<div class="relative flex flex-col items-center">
+<div class="bg-white px-3 py-1.5 rounded-lg shadow-lg mb-2 opacity-0 group-hover/pin:opacity-100 transition-opacity absolute bottom-full whitespace-nowrap z-50 pointer-events-none">
+<p class="text-xs font-bold text-secondary">Open Space Moderne</p>
+<p class="text-[10px] text-slate-500">250 m² • 8,200€</p>
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+</div>
+<span class="material-symbols-outlined text-primary text-[40px] map-pin">location_on</span>
+<div class="w-2.5 h-1 bg-black/20 rounded-[50%] blur-[1px] -mt-2"></div>
+</div>
+</div>
+<!-- Low Match (Gray) -->
+<div class="absolute top-[25%] left-[60%] cursor-pointer hover:z-50">
+<span class="material-symbols-outlined text-slate-400 text-[32px] map-pin">location_on</span>
+</div>
+<!-- Floating Search Pill on Map -->
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-white flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+<span class="text-sm font-medium text-secondary">Recherche dans cette zone</span>
+</div>
+</div>
+<!-- Results List Zone (Bottom 40%) -->
+<div class="h-[40%] bg-background-light flex flex-col overflow-hidden">
+<!-- Toolbar -->
+<div class="px-6 py-4 bg-white border-b border-slate-200 flex justify-between items-center flex-shrink-0 z-10 shadow-sm">
+<h3 class="font-display font-bold text-lg text-secondary">24 Résultats trouvés</h3>
+<div class="flex items-center gap-3">
+<span class="text-sm text-slate-500">Trier par:</span>
+<div class="relative">
+<select class="appearance-none bg-slate-50 border-none text-secondary text-sm font-medium rounded-lg py-2 pl-3 pr-8 focus:ring-0 cursor-pointer hover:bg-slate-100 transition-colors">
+<option>Pertinence</option>
+<option>Loyer croissant</option>
+<option>Surface décroissante</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 pointer-events-none text-slate-500 text-[18px]">sort</span>
+</div>
+</div>
+</div>
+<!-- List Content -->
+<div class="flex-1 overflow-y-auto p-6 custom-scroll">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+<!-- Result Card 1 (High Match) -->
+<div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-primary/20 flex gap-4 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 rounded-lg bg-cover bg-center overflow-hidden relative" data-alt="Modern office interior with glass walls" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnT33KXCddM95tcweg3G8DB8mSYJxnh7XbhWaQRuC62RAWNnPtZ5lOlueehOrlE4VVOnOBLCYTymCI0v5Liph6ZHpHXaYCu7BPCsonXLJ0ofBGb8IzTlKpuX1w6Ox0GgMMQq8vnAkh9xkMXWz66C8IGxIjzDCuqqYAZTRLcl7tQ5oIOAX82stXKKyAFSMpSV0-r04t2Yc1Xim2eSb6vyQn_dGNE13cQfHK71fGjpmHHbVPsiX3idZ-ObCDZpnpvh0anJrjckNvZC4');">
+<div class="absolute top-2 left-2 bg-secondary/80 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium">BUREAU</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-display font-bold text-secondary text-lg leading-tight group-hover:text-primary transition-colors">Bureau Haussmannien - Paris 8</h4>
+</div>
+<p class="text-slate-500 text-sm mt-1">Rue de la Boétie, 75008 Paris</p>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">square_foot</span>
+                                            120 m²
+                                        </div>
+<div class="w-px h-3 bg-slate-300"></div>
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">payments</span>
+                                            4 500 €<span class="text-xs text-slate-400 font-normal">/mois</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center pl-2 border-l border-slate-100">
+<div class="relative size-12 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-slate-100" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-accent-green" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="8" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-xs font-bold text-accent-green">92%</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400 mt-1">Match</span>
+</div>
+</div>
+<!-- Result Card 2 (Medium Match) -->
+<div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-primary/20 flex gap-4 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 rounded-lg bg-cover bg-center overflow-hidden relative" data-alt="Open space office with plants" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBwaDm169y7rMofpbkPeRtSqF4ABuP9RZGqf8sQ1EeXqGOdpWQX9Pu2T_o8K_D3uyqKadyzKcEt908bHkYNRxdujJ-lk3W8nD4p0ImkDQ8l32NBxgnrVrg3TbeZVwEvur9kzgRNQryaIx58vRuwaq22rKQyw76t4KumeowSKhSgMOgtYeyWPvoSuLXqMmIamOyjz5KRCUY65oIkIuLKDO_lAQVkQvb6ue3kJO8aJl9X47BRUUndUpR8tYqH1M2LmgIJiK5VD6EsQgA');">
+<div class="absolute top-2 left-2 bg-secondary/80 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium">BUREAU</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<h4 class="font-display font-bold text-secondary text-lg leading-tight group-hover:text-primary transition-colors">Open Space - Sentier</h4>
+<p class="text-slate-500 text-sm mt-1">Rue du Sentier, 75002 Paris</p>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">square_foot</span>
+                                            250 m²
+                                        </div>
+<div class="w-px h-3 bg-slate-300"></div>
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">payments</span>
+                                            8 200 €<span class="text-xs text-slate-400 font-normal">/mois</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center pl-2 border-l border-slate-100">
+<div class="relative size-12 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-slate-100" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="25" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-xs font-bold text-primary">75%</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400 mt-1">Match</span>
+</div>
+</div>
+<!-- Result Card 3 (High Match) -->
+<div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-primary/20 flex gap-4 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 rounded-lg bg-cover bg-center overflow-hidden relative" data-alt="Empty commercial space storefront" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWlHt-8ldhnOLyIcUavVhbm8paJIlD0rjkfciOUiOvrX-EC4QZ8Hzk5N0l4aJ9aBywKxOlq2dDhPdKdgNojlqYZL-_InHfSaqntB1uJPO-zUR8eH_WWepNAZL08q8u85E41wx21KvAeYdFpf_TSXLHK0DhBw-6TyJhUuXJfKIlvi9THFzseBeyYu4dWUlx6vo3qCH9McnxeizsTpE5mvhmXrx6FPo3aSN864jr7CaDUVmMr004W-Jkz1Gm3zY5wlkcd_P_vpJEgpI');">
+<div class="absolute top-2 left-2 bg-secondary/80 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium">COMMERCE</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<h4 class="font-display font-bold text-secondary text-lg leading-tight group-hover:text-primary transition-colors">Local Commercial - Marais</h4>
+<p class="text-slate-500 text-sm mt-1">Rue des Archives, 75003 Paris</p>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">square_foot</span>
+                                            85 m²
+                                        </div>
+<div class="w-px h-3 bg-slate-300"></div>
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">payments</span>
+                                            5 100 €<span class="text-xs text-slate-400 font-normal">/mois</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center pl-2 border-l border-slate-100">
+<div class="relative size-12 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-slate-100" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-accent-green" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="12" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-xs font-bold text-accent-green">88%</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400 mt-1">Match</span>
+</div>
+</div>
+<!-- Result Card 4 (Low Match) -->
+<div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-primary/20 flex gap-4 group cursor-pointer opacity-80 hover:opacity-100">
+<div class="w-32 h-24 flex-shrink-0 rounded-lg bg-cover bg-center overflow-hidden relative" data-alt="Modern coworking space with large windows" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDS4R2bhASFA9F1KRiJLE5ktMrwqnW9Ck0xNVEHef7X_TZ0UiWiMcUKmv0PZp3cW2x0Ky8hd1G6vmACvqtxEgZJZZoV0mBTKaQ6p8mTe6JyG_KQvEv5lyXBnPQZwC__Nw2kw_DNaVFR4PrOHMfOqDtJloAF2tCW0QnobaYdRjDsti-DaF0F6VRTUEYlHt_Tys8T1vorrEy18Yy5gcYC6xN7myGJFBuS9HJsu9s03dUs5tSt1HA3oKfdtspdKv5RE1swYUEIqReJEUc');">
+<div class="absolute top-2 left-2 bg-secondary/80 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium">BUREAU</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<h4 class="font-display font-bold text-secondary text-lg leading-tight group-hover:text-primary transition-colors">Plateau Opéra</h4>
+<p class="text-slate-500 text-sm mt-1">Avenue de l'Opéra, 75001 Paris</p>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">square_foot</span>
+                                            400 m²
+                                        </div>
+<div class="w-px h-3 bg-slate-300"></div>
+<div class="flex items-center gap-1.5 text-secondary font-medium text-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-400">payments</span>
+                                            18 000 €<span class="text-xs text-slate-400 font-normal">/mois</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center pl-2 border-l border-slate-100">
+<div class="relative size-12 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-slate-100" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-slate-400" cx="18" cy="18" fill="none" r="16" stroke-dasharray="100" stroke-dashoffset="60" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-xs font-bold text-slate-400">40%</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400 mt-1">Match</span>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-center">
+<button class="text-primary text-sm font-semibold hover:underline flex items-center gap-1">
+                                Voir plus de résultats <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        // Simple script to toggle active state on sidebar links (visual only)
+        const links = document.querySelectorAll('nav a');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent actual navigation for demo
+                links.forEach(l => {
+                    l.classList.remove('bg-ice-blue/50', 'text-primary');
+                    l.classList.add('text-slate-600', 'hover:bg-slate-50');
+                    l.querySelector('.material-symbols-outlined').classList.remove('fill-current');
+                    l.querySelector('.material-symbols-outlined').classList.add('text-slate-500', 'group-hover:text-primary');
+                });
+                
+                link.classList.remove('text-slate-600', 'hover:bg-slate-50');
+                link.classList.add('bg-ice-blue/50', 'text-primary');
+                link.querySelector('.material-symbols-outlined').classList.remove('text-slate-500', 'group-hover:text-primary');
+                link.querySelector('.material-symbols-outlined').classList.add('fill-current');
+            });
+        });
+    </script>
+</body></html>

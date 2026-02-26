@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketplace Partenaires ImmoConnect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Afacad:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c5faa", // As requested in plan, though specific hexes were also given, we align primary to plan
+                        "primary-dark": "#0E3A53", // Title color
+                        "secondary": "#009984", // Badge Green
+                        "accent-blue": "#3B5DA8", // Active state / Stars
+                        "ice-blue": "#D8E8F7", // Chips default
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#14171e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "heading": ["Afacad", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Afacad', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden text-slate-900 dark:text-slate-100">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 shadow-sm">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-4xl">real_estate_agent</span>
+</div>
+<h2 class="text-primary-dark dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em] font-heading">ImmoConnect</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Tableau de bord</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Projets</a>
+<a class="text-primary font-bold leading-normal text-sm" href="#">Marketplace</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Messagerie</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Mon Compte</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Publier un projet</span>
+</button>
+<div class="relative group cursor-pointer">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-slate-200 dark:border-slate-700" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAW1M0ek0qPKRKR6hgmzOYOwh9egxrHGmvzDvJlj_q-TrEBDluEKvC4XcUVFbSPucGzAswhm8dRsqeoLr6de7v1TlVS9Y1r0m6sR-3cML786Vg7geZH7qOnTRdPiiat6Bnrr2KU1BDKWigZqdIjtYtUfeBuE2g8m1TW1Kv0Gaeg5_CBRqpSrY7HPlhQuRQoL3rF4ZSqWnEHH3-5YCqA77gNvDWu2dWhLIRIfGakbNgD9Q9aoxjiy69I7i_t_ZoKWmUgK-Pq5zyvANk");'></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="layout-container flex h-full grow flex-col px-4 md:px-10 py-8 max-w-[1440px] mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col gap-2 mb-8">
+<h1 class="text-primary-dark dark:text-white text-4xl md:text-5xl font-bold leading-tight tracking-[-0.02em] font-heading">Marketplace Partenaires</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg font-normal leading-normal max-w-2xl">Trouvez les professionnels certifiés pour vos projets immobiliers commerciaux et résidentiels.</p>
+</div>
+<!-- Filters and Search Toolbar -->
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-10">
+<!-- Category Chips -->
+<div class="w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0 no-scrollbar">
+<div class="flex items-center gap-3">
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-accent-blue text-white font-medium text-sm transition-all shadow-md">
+                        Tout
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        BTP
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Notaire
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Avocat
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Géomètre
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Architecte
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Courtier
+                    </button>
+<button class="shrink-0 flex items-center justify-center h-10 px-5 rounded-full bg-ice-blue hover:bg-blue-200 text-primary-dark font-medium text-sm transition-all">
+                        Énergie Durable
+                    </button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="w-full lg:w-auto min-w-[320px]">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-accent-blue transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-transparent shadow-sm transition-all" placeholder="Rechercher par nom, ville ou service..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Provider Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Architecte -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Modern architectural office interior" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCq1vV-BHVgjRsP_ANjfMs_VxBXE9_QvyxmA-flrnbqkb7LkZIdcb0tIBHX255RQskgSWN9gknkToYij4JVxgz9F0Gxrlj-p-gV5bWynXdmvCV3XpdCwmOZwWkutb3aBmosL01GgrPsGcLUIz2c8W1bXrAZuMBPhAhiMaEYnAFEUZgl3rWIarEc_dCCPv3OHa1wHmxcgp5BdYNEPeRBK5mHeVItzHNbBDjmZc1r_IU5tQpVxamcd9ks_V76Ku7xsapRb0kk3jZNa4s");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                            Architecte
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden">
+<img alt="Jean Dupont Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqWmnPR6IWQ_O2M2SOvnxkfRy-P5aYDr7wn5VLha-skSb9b1tkhbW6zzRzD3xkai0lMsUFbhaGsD0xkKBfYI-zZ21Zji8sh8QWAH0RBxrtqmRQ5W8uvytmTz6jGfol0egizi3nwtgqkleDTBb_s4PUvC3sEwsn1sz9v5WvB_ii2YQsREtCHfAOjdu6Y2bF3eKaQ2MHYc3UJLuV8BhmbfAfjHfRuNLvq-60JqKYMjDHlpTkXR2Ba7Rg5yP6VyEi0nxt87o1NUAW8n8"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">Jean Dupont Architecture</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star_half</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(4.8) • 24 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Spécialiste en rénovation de bâtiments commerciaux et bureaux modernes. Nous transformons vos espaces de travail pour plus de productivité.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Paris, 75008</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Notaire -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Office with legal documents" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1uJHyRsfqOgz9dmYYASsDaaEywg67OrUn-KD1iul3wYcOUAgKx71rB1GVji_e1xe95IXMHKHQ0t2h4Pl-CagLaKsZoAd1W_rKmOUk3S6VVccUVQ686ybrip37Cg-s8cjODaPtyc_uN3BbDcKBFC2OUtx_pCRxWPYMvx_xgMD-Y7MIZS0geO92YVNZR0VWA16YYGW4p2zHrtQ7nOiRz17Q1qBNuvWCLGUzYFHwtKykHBjlOypZ_9esbOCnPp0Y2Gmh8Esx0DU-668");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">gavel</span>
+                            Notaire
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden">
+<img alt="Cabinet Martin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkbTAXqxhOOZXr35J3OjcBOl6ZFkBbfc1iq3e71FyfjylBi0nzIo5RpQFtFN63IPvTzSrE_oL8t_gphgIcNaL-sjZ7pEOSGUMixPNVXNiXNR46pbnJMQeR_w1iHAvmkmiGgbRxK-tHA4Gfhncgo8TdYoHw3qjRuWFICB1xVnofbP5J1wbPSz6GujL_d_0JST-gd3_1Oy9qMJ1AeUMrRFNrk2b5JcVkUhA3QCjkUunelOrqnHi3ewtthOct2znUivRdsGJ1m8BsS5A"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">Cabinet Martin &amp; Associés</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(5.0) • 42 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Expertise en droit immobilier d'entreprise. Sécurisation de vos transactions et conseils stratégiques pour investisseurs.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Lyon, 69002</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3: BTP -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Construction site workers" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAoKZy2qNiHw6bRLUOdfBAk1uyRTVCuybf46CndULrUQYdu1Tde1rcbwTTlDHrtixA-BiRgOxU9uPZKnk8sNJD59ukKn4amgA9sQ7AafiStZWbj9Ta-lvh7twOTWbZ1huGCdN70pU0Snyqn-iLUq6VKsRy-4CKAS_KHScr4pUgZmL05uA7q1m0xDvQlQPxs_b4hLp3WAtHTCRInDHC_e3qFd8DD-ub7WnWLqQ5-mc9ZLbWiyoUryPRjydAuOzc-0s4kLAvHY3L1db8");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">construction</span>
+                            BTP
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden flex items-center justify-center">
+<!-- Fallback initials/logo if no photo -->
+<span class="text-xl font-bold text-slate-700">CT</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">Construct Travaux</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star_half</span>
+<span class="material-symbols-outlined text-[18px] text-slate-300">star</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(3.5) • 12 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Entreprise générale de bâtiment. Gros œuvre, maçonnerie, et finitions pour locaux commerciaux.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Bordeaux, 33000</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 4: Courtier -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Financial graphs and charts" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4J1X7uoBUhTkZgm0J7xpjLQrdGNzfb-WrfkQhdyWGNDNheqiFpNJlT--ECbZOKK-DIKzApx4lEKTpEpu7V_xMNhPuWHaOoCGS5i5Trn_IfbHJJRH4zsp_XhwZVELs32hI5BxgNcipMEJC7vpnRdUinwnR29igAUt7dx7cEVfOCMK2ApSdldEnQS-zcHN5owEf5HtyrcC-8kMuJMy_jEQ1WSQdgNmNfAX99aaCax19E_Wg_6NeC5P9xW18CA2JWD1Vq6KS0O46Wa0");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">percent</span>
+                            Courtier
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden">
+<img alt="Finance Pro Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsJ4ZTjWa_bzUvrqJNy1AaYXou1NDKvEw07XiO0QBW1OWjWKmgzJq90pR4mLdA7NZ8gaQlNXHtpsxgX4J4As2z1Va6i737ORd0De9HnvQlLemnhZR6Ik5CHxhUxOYGXzWICsBUsdgS7g_gURW4tW1DEJ9X9LfbEP04rxf-V3fzmzb0ljI-HV-5N1YZu-I7FHXn2IB_OW07Yn8cg1enOoZTsw7QXCwYPQn2422mv_U02dY4Ho9pVSGh3h5qXpNKZNxvMG8vt4yZsPc"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">Finance Pro Courtage</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] text-slate-300">star</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(4.2) • 56 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Nous négocions les meilleurs taux pour vos crédits immobiliers professionnels. Accompagnement sur mesure.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Lille, 59000</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 5: Géomètre -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Surveyor equipment on field" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCp8rzVk4yHqdhtEMvYJwUrRVY1mcI1KglP-VFbSduXMLIIabE5EU3edXWGq1oM4KEYzqb-4wbgTB7kSxqeqD6a7TAtbaCYNxItDN_fHgx7Y4ROCPnjK-wuqrgRFUehvfKIszCEgmtgA3aYy7aub-f-Drc9_rfvGuHGjtKQy6EP00ZhWI11fWNGcybQTJfBqAYVs6oNQ_B8rZEDBkHx3wraRs9Bk6wW9sOxrN5k5Alw9cYcMJ9VxiCRx1VBaINXMcQyDn1TOtYCWYw");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">square_foot</span>
+                            Géomètre
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden">
+<img alt="Cabinet Bernard Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF3H4Eoh197xBdIFjWhy1Nv8x4EkkfcZFLXMSoTnCmAAy6730jD4j5hSEzfpzHYD-0eUEZPucwqFu9hakm7R08OzStInJd68nm2GLygmPN4-jKfcs_kirXmUMWp8NTKlbfTQC-P8gsvKHBU-Mh9F2rUSq2WuDLuwzgqDCKrNQfuacmeYlvA_Rg_OuEqHf4F-81YNpM0ip2z-Gm-eBY60muqXpGpPYZfEc3rlCyAXmsS72YN2uglrVkg8P-2AJ0HFo7tYPa2tGrZhM"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">Cabinet Bernard</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star_half</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(4.6) • 8 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Géomètres-experts. Bornage, division de propriété, copropriété et relevés topographiques précis.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Nantes, 44000</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 6: Énergie Durable -->
+<article class="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="Solar panels on roof" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYCLFDlKIShSjn7C9GxUtF4BvwQsAJn4zxniIsi_l-LKnEfcGY3hwIENXFxbwrAKMk9pWUo1o06VSkd0q41F4Rbej0-6FsCxanHQ2I1C2SSPBWwqUHcbN9c7VTlwRV7bvprZCB7yH-IaFjxZJcJg-tB8WkBHErdjJIvnYk6TFl_2UV3CPqtRrxZ9wMQ3eBu1Kn01ZGzKNpq_14N-47tHti1u2IReaRCMz5vHTEpJczegGm5nZ0TrrP032Ay4DGc_y27oQVkc7f0bc");'></div>
+<div class="absolute top-4 right-4 z-20">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/90 text-white text-xs font-bold shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">eco</span>
+                            Énergie
+                        </span>
+</div>
+<div class="absolute -bottom-6 left-4 z-20">
+<div class="size-16 rounded-xl border-4 border-white dark:border-slate-800 bg-white shadow-md overflow-hidden flex items-center justify-center bg-emerald-50">
+<span class="material-symbols-outlined text-3xl text-emerald-600">solar_power</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 pt-8">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-primary-dark dark:text-white text-xl font-bold font-heading">EcoSoluce Pro</h3>
+<div class="flex items-center gap-1 mt-1">
+<div class="flex text-accent-blue text-sm">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+</div>
+<span class="text-slate-500 text-sm font-medium">(4.9) • 105 avis</span>
+</div>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                        Solutions photovoltaïques pour entreprises. Réduisez votre empreinte carbone et vos factures énergétiques.
+                    </p>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-sm font-medium">Toulouse, 31000</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white transition-colors text-sm font-bold bg-transparent">
+<span>Demander un devis</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+</body></html>

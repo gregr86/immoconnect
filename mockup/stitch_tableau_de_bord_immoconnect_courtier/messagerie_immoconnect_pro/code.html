@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Messagerie ImmoConnect Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Afacad:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B5DA8", // Blue
+                        secondary: "#0E3A53", // Navy
+                        accent: "#009984", // Green
+                        surface: "#D8E8F7", // Ice Blue
+                        background: {
+                            light: "#f6f6f8",
+                            dark: "#13171f",
+                        },
+                        text: {
+                            main: "#0E3A53",
+                            muted: "#677083"
+                        }
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Space Grotesk", "sans-serif"],
+                        name: ["Afacad", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        lg: "12px", 
+                        xl: "16px",
+                        full: "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Font assignments */
+        .font-name {
+            font-family: 'Afacad', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main h-screen overflow-hidden font-display flex flex-col">
+<!-- Top Navigation Bar (Reused & Adapted) -->
+<header class="flex-none flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 bg-white dark:bg-slate-900 px-6 py-3 z-20 shadow-sm">
+<div class="flex items-center gap-4 text-secondary dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-xl">apartment</span>
+</div>
+<h2 class="text-secondary dark:text-white text-xl font-bold leading-tight tracking-tight font-name">ImmoConnect Pro</h2>
+</div>
+<div class="flex gap-3">
+<button class="hidden md:flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-sm hover:bg-opacity-90 transition-colors">
+<span class="truncate">Mon Compte</span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 hover:bg-slate-200 text-secondary dark:bg-slate-800 dark:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 hover:bg-slate-200 text-secondary dark:bg-slate-800 dark:text-white transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Column: Conversation List (280px fixed) -->
+<aside class="w-[320px] flex-none border-r border-slate-200 bg-white dark:bg-slate-900 flex flex-col z-10 hidden md:flex">
+<!-- Search Bar -->
+<div class="p-4 border-b border-slate-100">
+<label class="relative flex items-center">
+<span class="absolute left-3 text-slate-400">
+<span class="material-symbols-outlined">search</span>
+</span>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary placeholder-slate-400 text-slate-700 dark:text-slate-200 font-display" placeholder="Rechercher..." type="text"/>
+</label>
+</div>
+<!-- List -->
+<div class="flex-1 overflow-y-auto p-3 space-y-2">
+<!-- Active Conversation -->
+<div class="group flex gap-3 p-3 rounded-lg bg-surface/50 border border-primary/10 cursor-pointer transition-colors relative">
+<div class="relative flex-none">
+<img alt="Professional woman portrait" class="size-12 rounded-full object-cover border border-slate-200" data-alt="Portrait of a professional woman with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPN8bGkGKaiJm1PBkoWuKdTwOJ-Yr3Rcm0lRZhAjMv197-2Twf1aQNfQLTggZ31RSxFrVW5-NIm-hykNmXWJG3t4TAF958OiT72e2QIWdOCRpXZY7r2-kH8YQV2F9QIOH3ieQVJUlUWPCvSss4VaKEmhuvIQxZvlMZJ7A-Wn9d2uC2VhvnsnvBsLe8q9jLWtJWjslDNj7uE8jcwllTRoL5D9i5XR0nguERzvh1tEkCO5SHMiDGIqwneRB1wgWH3ZoLfZs5Op2ONQs"/>
+<span class="absolute bottom-0 right-0 size-3 rounded-full bg-accent border-2 border-white"></span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="text-secondary font-name font-bold text-base truncate">Sophie Martin</h3>
+<span class="text-xs text-primary font-medium">10:42</span>
+</div>
+<p class="text-sm text-slate-600 truncate font-display">Je vous envoie les plans modifiés...</p>
+</div>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 translate-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-400 text-lg">chevron_right</span>
+</div>
+</div>
+<!-- Unread Conversation -->
+<div class="group flex gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<div class="relative flex-none">
+<div class="size-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-lg font-name">JD</div>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="text-secondary dark:text-white font-name font-bold text-base truncate">Jean Dupont</h3>
+<span class="text-xs text-slate-400">Hier</span>
+</div>
+<p class="text-sm text-slate-900 dark:text-slate-300 font-bold truncate font-display">Merci pour votre retour rapide.</p>
+</div>
+<div class="flex-none flex items-center">
+<span class="size-5 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center">2</span>
+</div>
+</div>
+<!-- Regular Conversation -->
+<div class="group flex gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<div class="relative flex-none">
+<img alt="Modern building facade" class="size-12 rounded-full object-cover border border-slate-200" data-alt="Modern office building facade glass windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAebrbjkixfnLqgNCyuDEHR_rsAeZ6IdnTdzmqgWq-wznBQ17TIQ2TtupiClHqYep-mw4KgXwDnqXHPp6xwLO3Za-ezK4aMuKag4Q6u7Dz-oidq7Dg0n2UeL6AHFOZdBgXoLC_MBu2engu-FF8SYf3Jqt1uSX9heGBlizqxk2AXwYlbhmgOnYLVjzM7k4eUGKYpdZGSAETPDKKMt-VVSg7j8XqCS_tjfMNW1zVWQwDAJyEAKMIsHRnHPTtbTXD4YD8JrsvFd_p6v7Q"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="text-secondary dark:text-white font-name font-bold text-base truncate">Immeuble Haussmann</h3>
+<span class="text-xs text-slate-400">Mardi</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 truncate font-display">Est-ce que le loyer inclut les c...</p>
+</div>
+</div>
+<!-- Regular Conversation -->
+<div class="group flex gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<div class="relative flex-none">
+<div class="size-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg font-name">LC</div>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="text-secondary dark:text-white font-name font-bold text-base truncate">Lucie Caron</h3>
+<span class="text-xs text-slate-400">Lundi</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 truncate font-display">Document reçu, merci.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center Column: Chat Window (Flexible) -->
+<main class="flex-1 flex flex-col bg-slate-50/50 dark:bg-slate-950 min-w-0 relative">
+<!-- Chat Header -->
+<div class="h-16 flex-none bg-white dark:bg-slate-900 border-b border-slate-200 flex items-center justify-between px-6 shadow-sm z-10">
+<div class="flex items-center gap-3">
+<div class="md:hidden">
+<button class="p-1 -ml-2 text-slate-500"><span class="material-symbols-outlined">arrow_back</span></button>
+</div>
+<div class="relative">
+<img alt="Avatar" class="size-10 rounded-full object-cover" data-alt="Avatar of Sophie Martin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3TVZiK4IwAxKVZF-XVkksg_2436IwW7a8Poo9YNmNzOZO0HNIfD25OMTEi1DzdwKTfcrsTBf5cZ6ZknNTeFgv9RufRTuZpU472vvgg4z8oEXjTqNyeSQ_O3k-MGZUcsn2J3m9JN4xiYRDrckDayHpTIerfoxBBGTqDiTADlqx2J1FuEfWJ2Mw-akzOogKeQR57Mpl-6N8IqKH1HQ7sSltTsKy6uSKVtyTu1cgFsE7-E9NX2YN7c0bwar4Y70EJfaePAB5xB0hpvE"/>
+<span class="absolute bottom-0 right-0 size-2.5 rounded-full bg-accent border-2 border-white"></span>
+</div>
+<div>
+<h2 class="text-secondary dark:text-white font-name font-bold text-lg leading-tight">Sophie Martin</h2>
+<div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+<span>Agence Centrale</span>
+<span class="size-1 rounded-full bg-slate-300"></span>
+<span class="text-primary font-medium">Réf: BUR-75008</span>
+</div>
+</div>
+</div>
+<button class="text-slate-400 hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Messages Stream -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="text-xs font-medium text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">Aujourd'hui, 14 octobre</span>
+</div>
+<!-- Message: Received -->
+<div class="flex gap-4 max-w-[85%]">
+<img alt="Avatar" class="size-8 rounded-full object-cover mt-auto flex-none" data-alt="Avatar of Sophie Martin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRzNQV8FYebga2dDqoctAPDwxhnkKZjMwE7byQ6gcz83_IvVqoj2pdGt42qbb5nItXPDl-HARxnqv-T5l5krhYpX6s8rqogy6AyuGGITy3A-FCsKXNPhxDiXVB7mvtF13d6eVcq40mwcpZXURHeMpLwsFUuQXNBgcoEZPeFECO3WizjV5tBt5Xh8hlr0yDKCBj4IQx-6qmQaoQxO3QA3yQefl3ulLH9pxq7usGJYGmSmM5pMoKx5wXdFpj6eRib7aDf9rbIvhl-M4"/>
+<div class="flex flex-col gap-1 items-start">
+<div class="bg-surface text-secondary p-4 rounded-2xl rounded-bl-none shadow-sm dark:bg-slate-800 dark:text-slate-200">
+<p class="text-sm leading-relaxed">Bonjour, le dossier technique est-il complet ? J'ai besoin de confirmer la surface CARREZ avant de programmer la visite avec mon client.</p>
+</div>
+<span class="text-[11px] text-slate-400 ml-1">09:15</span>
+</div>
+</div>
+<!-- Message: Sent -->
+<div class="flex gap-4 max-w-[85%] self-end flex-row-reverse">
+<div class="size-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-secondary mt-auto flex-none">Moi</div>
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-br-none shadow-sm shadow-blue-900/10">
+<p class="text-sm leading-relaxed">Bonjour Sophie. Oui, je viens de vérifier, tout est à jour.</p>
+</div>
+<div class="bg-primary text-white p-4 rounded-2xl rounded-br-none shadow-sm shadow-blue-900/10 mt-1">
+<p class="text-sm leading-relaxed">Je vous envoie les plans DWG modifiés à l'instant, ainsi que le dernier diagnostic DPE.</p>
+</div>
+<span class="text-[11px] text-slate-400 mr-1 flex items-center gap-1">
+                            10:30 <span class="material-symbols-outlined text-[14px]">done_all</span>
+</span>
+</div>
+</div>
+<!-- Message: Received with Attachment -->
+<div class="flex gap-4 max-w-[85%]">
+<img alt="Avatar" class="size-8 rounded-full object-cover mt-auto flex-none" data-alt="Avatar of Sophie Martin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMrmH1cky3Xk3fEa3pxPtLHSHNFl9u10N2OvPWCO5KJ58_1zOdCEPoX1ia7umV1KHZpi-3ebSFbmqpQ73e-nN2rLhfwXpuRBwLyGMadKNv7BudMxioc8ePcfwg45G2I3VKjcG7N6mIQsBQTjE2FoRwDCa6kcExfe0HrUq5qAspiMz6kzjYQfSmGoeZVg3xlGJm0pRAgexGJPKgLJfTpWWY40SVu-Rgnba02Z0yfgix1uH4C4-qX_KZ7lSh0IWBKTiwuv8w0IcED8g"/>
+<div class="flex flex-col gap-1 items-start">
+<div class="bg-surface text-secondary p-3 rounded-2xl rounded-bl-none shadow-sm dark:bg-slate-800 dark:text-slate-200">
+<div class="flex items-center gap-3 bg-white/50 dark:bg-black/20 p-2 rounded-lg border border-secondary/10">
+<div class="size-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-[120px]">
+<span class="text-sm font-bold truncate">Offre_Achat.pdf</span>
+<span class="text-xs opacity-70">2.4 MB</span>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+<p class="text-sm leading-relaxed mt-2">Merci ! Voici une proposition d'offre formelle de la part de mon client.</p>
+</div>
+<span class="text-[11px] text-slate-400 ml-1">10:42</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="flex-none p-4 bg-white dark:bg-slate-900 border-t border-slate-200">
+<div class="flex items-end gap-3 max-w-4xl mx-auto">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<div class="flex-1 bg-slate-100 dark:bg-slate-800 rounded-2xl p-3 focus-within:ring-2 focus-within:ring-primary/20 transition-shadow">
+<textarea class="w-full bg-transparent border-none p-0 text-sm focus:ring-0 text-slate-700 dark:text-slate-200 placeholder-slate-400 resize-none font-display max-h-32" placeholder="Écrivez votre message..." rows="1"></textarea>
+</div>
+<button class="h-11 px-6 bg-accent hover:bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-sm transition-colors flex items-center gap-2 shrink-0">
+<span>Envoyer</span>
+<span class="material-symbols-outlined text-lg">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Right Column: Context Panel (260px fixed) -->
+<aside class="w-[280px] flex-none border-l border-slate-200 bg-white dark:bg-slate-900 flex flex-col hidden lg:flex">
+<div class="p-5 border-b border-slate-100">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Contexte du bien</h3>
+<!-- Property Card -->
+<div class="group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="h-32 w-full bg-slate-200 relative overflow-hidden">
+<img alt="Bureaux Paris 8ème" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern bright open space office interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJMwUbG7xDbTWusjbdTLsLF0C-Ef30wuDVnhrXGjMvq248It5bfyuqD-xQjatoK5Ax36bve_tnR_GoeXDacbbuDAbHhQVRyVxv-AckHiiJL5RLezvN72UeloHbyAacvIB1u9xTdj2GELLKkQ6-BBDz_DAdu6KzwGVOXOrHmErG_N9CsOldT5EDYe8jLOoEUJigCEoq7LgZyoUgC1YaNBLSGIuscq9RhKk01khG9mwxz-xHBEg3I2YpE4a03PDnXAA58Gx-sotnwW0"/>
+<div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-primary">À Louer</div>
+</div>
+<div class="p-3">
+<h4 class="font-name font-bold text-secondary dark:text-white text-base leading-tight mb-1">Bureaux Haussmanniens</h4>
+<p class="text-xs text-slate-500 mb-2 truncate">Paris 8ème, Triangle d'Or</p>
+<div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase">Surface</span>
+<span class="text-sm font-bold text-secondary dark:text-slate-200">450 m²</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] text-slate-400 uppercase">Loyer/mois</span>
+<span class="text-sm font-bold text-primary">22 000 €</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-3 py-2 text-xs font-bold text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">
+                    Voir l'annonce complète
+                </button>
+</div>
+<!-- Documents Section -->
+<div class="flex-1 overflow-y-auto p-5">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Documents partagés</h3>
+<div class="space-y-3">
+<!-- Doc Item -->
+<div class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 group transition-colors cursor-pointer">
+<div class="size-8 rounded bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-lg">architecture</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-secondary dark:text-slate-200 truncate">Plan_RDC_V2.dwg</p>
+<p class="text-xs text-slate-400">12 Oct • 15 MB</p>
+</div>
+<button class="text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+<!-- Doc Item -->
+<div class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 group transition-colors cursor-pointer">
+<div class="size-8 rounded bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-secondary dark:text-slate-200 truncate">Diagnostic_DPE.pdf</p>
+<p class="text-xs text-slate-400">10 Oct • 2.1 MB</p>
+</div>
+<button class="text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+<!-- Doc Item -->
+<div class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 group transition-colors cursor-pointer">
+<div class="size-8 rounded bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-lg">image</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-secondary dark:text-slate-200 truncate">Photos_HD.zip</p>
+<p class="text-xs text-slate-400">08 Oct • 45 MB</p>
+</div>
+<button class="text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Actions Footer -->
+<div class="p-4 border-t border-slate-200">
+<button class="w-full flex items-center justify-center gap-2 py-2.5 bg-secondary text-white rounded-lg text-sm font-bold hover:bg-opacity-90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">edit_document</span>
+                    Créer une offre
+                </button>
+</div>
+</aside>
+</div>
+</body></html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tableau de bord Apporteurs d'Affaires - ImmoConnect</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5f3caa",
+                        "primary-light": "#7e5ec2",
+                        "ice-blue": "#D8E8F7",
+                        "status-green": "#009984",
+                        "status-blue": "#3B5DA8",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#17141e",
+                    },
+                    fontFamily: {
+                        "display": ["Afacad", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", "Noto Sans", sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: "Afacad", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen fixed left-0 top-0 z-50 transition-all hidden md:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-gradient-to-br from-primary to-primary-light h-10 w-10 rounded-lg flex items-center justify-center text-white font-bold text-xl font-display">
+                IC
+            </div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-lg font-bold font-display leading-tight">ImmoConnect</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal">Espace Apporteur</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span>Mes leads</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Commissions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Mon profil</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Paramètres</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Portrait of a professional business man in a suit" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCR2jQlUO6I1mmAvMxNn6_jfu6Dsi92sRQ84EhN3Wqjc4G1yddwnQ0M7892TnyTx-Lhs4ghsOEQ3ggY2qAK5TZxrXJfPeeIk2X8-fUjufr7snpuOVXmp4nI3TPJFtcA9xQivvZ9xZg0xL0ocDfJ2BNuaPh8aU7jgXhGjBc2AGB2M4YdyLGQn3KYW966IsLDvTCJPKkA8wTs1NDDpoFHAPI9UMwVRsVOZ-2FHZTn73HBZqXBciSAxslBJx8ZFcZqqzIBQOYEYoReC4');"></div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Thomas Dubois</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Déconnexion</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
+<!-- Top Header Mobile -->
+<header class="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 flex justify-between items-center sticky top-0 z-40">
+<div class="flex items-center gap-2">
+<div class="bg-primary h-8 w-8 rounded flex items-center justify-center text-white font-bold text-sm font-display">IC</div>
+<span class="font-display font-bold text-lg">ImmoConnect</span>
+</div>
+<button class="text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<div class="p-6 lg:p-10 max-w-7xl mx-auto w-full flex flex-col gap-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white font-display tracking-tight">Tableau de bord</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1 font-body">Suivez vos performances et l'état de vos commissions en temps réel.</p>
+</div>
+<button class="bg-[#3B5DA8] hover:bg-[#2c4680] text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-blue-900/10 flex items-center gap-2 transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Soumettre un lead</span>
+</button>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-ice-blue dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-100 dark:border-slate-700 flex flex-col justify-between h-full relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-white/40 dark:bg-white/5 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-start justify-between z-10">
+<div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium font-display uppercase tracking-wider mb-1">Leads soumis</p>
+<p class="text-4xl font-bold text-slate-900 dark:text-white font-display">24</p>
+</div>
+<div class="p-2 bg-white/60 dark:bg-slate-700/60 rounded-lg text-[#3B5DA8] dark:text-blue-400">
+<span class="material-symbols-outlined">send</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 z-10">
+<span class="text-green-600 dark:text-green-400 font-medium flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12%
+                        </span>
+<span>depuis le mois dernier</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-ice-blue dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-100 dark:border-slate-700 flex flex-col justify-between h-full relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-white/40 dark:bg-white/5 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-start justify-between z-10">
+<div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium font-display uppercase tracking-wider mb-1">En cours de qualification</p>
+<p class="text-4xl font-bold text-slate-900 dark:text-white font-display">8</p>
+</div>
+<div class="p-2 bg-white/60 dark:bg-slate-700/60 rounded-lg text-[#3B5DA8] dark:text-blue-400">
+<span class="material-symbols-outlined">hourglass_top</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 z-10">
+<span class="text-orange-600 dark:text-orange-400 font-medium">3 actions</span>
+<span>requises aujourd'hui</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-ice-blue dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-100 dark:border-slate-700 flex flex-col justify-between h-full relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-white/40 dark:bg-white/5 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-start justify-between z-10">
+<div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium font-display uppercase tracking-wider mb-1">Commission totale</p>
+<p class="text-4xl font-bold text-status-green font-display">12 450 €</p>
+</div>
+<div class="p-2 bg-white/60 dark:bg-slate-700/60 rounded-lg text-status-green">
+<span class="material-symbols-outlined">euro_symbol</span>
+</div>
+</div>
+<div class="mt-4 w-full bg-white/50 dark:bg-slate-700/50 rounded-full h-1.5 overflow-hidden z-10">
+<div class="bg-status-green h-full rounded-full" style="width: 75%"></div>
+</div>
+<div class="mt-2 text-xs text-slate-500 dark:text-slate-400 flex justify-between z-10">
+<span>Objectif annuel</span>
+<span class="font-medium">75% atteint</span>
+</div>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="flex flex-col sm:flex-row justify-between gap-4 bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="w-full pl-10 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 text-sm font-body" placeholder="Rechercher par référence, description ou broker..." type="text"/>
+</div>
+<div class="flex items-center gap-2 px-2 overflow-x-auto">
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtres
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Date
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Exporter
+                    </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">Référence</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display w-1/3">Description du lead</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">Date</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">Broker assigné</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">Statut</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display text-right">Commission est.</th>
+<th class="p-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display w-10"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="p-4">
+<span class="font-mono text-sm font-medium text-slate-900 dark:text-white">#L-001</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Local commercial 200m² Paris</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[250px]">Recherche surface retail pour marque bio, zone Marais.</span>
+</div>
+</td>
+<td class="p-4 text-sm text-slate-600 dark:text-slate-400">12 Oct 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Broker profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmMZCEm1b23fJG60YzbgMNIgsjf0k-lYwNZQ8V1rkD5w-GJtgW41z7We6BJ867jFUP-9db73jSAuSxhkPF_IujW2SfY-sRGqNrSge2p86ItjGIAOmyNEYkRCGUWqSvCO7ExD3c6qoVw8jLaOqDxpI-xaTxuBPYyfTYzcWjpOy_1NZVW5cVni4-BYz0PKRMpylUVtf7xur9q0Fr_x2GkUx65YkhDLpLGq45EGJBh3JcJQxZ0kC1tt1lzlRSO78TPyTd00A3j8YrBVk');"></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Jean Dupont</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-status-green/10 text-status-green border border-status-green/20">
+                                        Qualifié
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<span class="text-sm font-bold text-slate-900 dark:text-white">4 500 €</span>
+</td>
+<td class="p-4 text-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="p-4">
+<span class="font-mono text-sm font-medium text-slate-900 dark:text-white">#L-002</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Bureaux Lyon Part-Dieu</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[250px]">Start-up tech en expansion, besoin immédiat.</span>
+</div>
+</td>
+<td class="p-4 text-sm text-slate-600 dark:text-slate-400">14 Oct 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Broker profile picture female" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6MXlgoSSPApXGgVMEkyK8pblO0-QeOPhu-pYQmBHpr5bKpr3WdzzUEaAb91UIPKZuMIdeduZIx2aMSBmxid2YKwvXVa3ego3oyEvjcib_qOs6yBTn8FBu9f3d1em3s2Vzr9yWciPvNqpJIfjeDI9u137_CYXPeWVgVuK87JQlRWhGbTQpFDk8sXnzwBjrHtm6H_PUA36z1zXH2mMV27j2CY0uqd3jsozLfIT78JikzsspHXtNscEna0jFyHmEQfEZudDqExPK0lc');"></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Marie Curie</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#3B5DA8]/10 text-[#3B5DA8] border border-[#3B5DA8]/20 dark:text-blue-300 dark:border-blue-300/20">
+                                        En qualification
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<span class="text-sm font-medium text-slate-400 italic">À définir</span>
+</td>
+<td class="p-4 text-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="p-4">
+<span class="font-mono text-sm font-medium text-slate-900 dark:text-white">#L-003</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Entrepôt Marseille</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[250px]">Logistique dernier kilomètre, accès autoroute A7.</span>
+</div>
+</td>
+<td class="p-4 text-sm text-slate-600 dark:text-slate-400">10 Oct 2023</td>
+<td class="p-4">
+<span class="text-sm text-slate-400 italic">--</span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-ice-blue text-slate-700 border border-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600">
+                                        Soumis
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<span class="text-sm font-medium text-slate-400 italic">À définir</span>
+</td>
+<td class="p-4 text-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="p-4">
+<span class="font-mono text-sm font-medium text-slate-900 dark:text-white">#L-004</span>
+</td>
+<td class="p-4">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Boutique éphémère Lille</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[250px]">Centre ville, période de Noël uniquement.</span>
+</div>
+</td>
+<td class="p-4 text-sm text-slate-600 dark:text-slate-400">08 Oct 2023</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Broker profile picture man" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_1cH-Cq3Gn6qruwMT2opShItcRXTWHd-07qa8k0gdRhwnTIjih8QrZHk42lmnBpYS5TDUTSE0CBal_BYWJJAoGiC5TWXd3tZGZJZqI9x-rpRY7OIvtoLsAPIStL4B4y3m4y-4Rav70i-0DJ1teSL-T4wHiIbU0_WSlM4JJZDeJZNQz6_NrRtpXdrRo7O-JKA2Sj_KDMDrYAuzXpL776oFTQHDBsFt_rFLdTZ88EcbT7AfeqHXZzfgKu8rcY_5oJ40-kXiBmJqIf8');"></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Lucas Martin</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700">
+                                        Rejeté
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<span class="text-sm font-medium text-slate-400 line-through">0 €</span>
+</td>
+<td class="p-4 text-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500 dark:text-slate-400">Affichage de <span class="font-medium text-slate-900 dark:text-white">1</span> à <span class="font-medium text-slate-900 dark:text-white">4</span> sur <span class="font-medium text-slate-900 dark:text-white">24</span> résultats</p>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 disabled:opacity-50 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-primary font-medium border border-slate-200 dark:border-slate-600 transition-colors">1</button>
+<button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors">2</button>
+<button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors">3</button>
+<button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

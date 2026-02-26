@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion d'Abonnement - ImmoConnect</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2495d6",
+                        "navy": "#0E3A53",
+                        "navy-light": "#1a5b7e",
+                        "success": "#009984",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#121b20",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "heading": ["Afacad", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#121517] antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-row overflow-x-hidden">
+<!-- Sidebar -->
+<div class="w-72 hidden lg:flex flex-col h-screen sticky top-0 border-r border-[#e0e0e0] bg-white shrink-0">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 px-3 py-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 bg-navy flex items-center justify-center text-white" data-alt="ImmoConnect Logo abstract shape">
+<span class="material-symbols-outlined text-2xl">apartment</span>
+</div>
+<div class="flex flex-col justify-center">
+<h1 class="text-[#121517] text-base font-bold font-heading leading-tight">ImmoConnect</h1>
+<p class="text-[#657a86] text-xs font-normal leading-normal">Plateforme B2B</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-4">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light cursor-pointer transition-colors group text-[#657a86] hover:text-[#121517]">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<p class="text-sm font-medium leading-normal">Tableau de bord</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light cursor-pointer transition-colors group text-[#657a86] hover:text-[#121517]">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">domain</span>
+<p class="text-sm font-medium leading-normal">Propriétés</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light cursor-pointer transition-colors group text-[#657a86] hover:text-[#121517]">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">group</span>
+<p class="text-sm font-medium leading-normal">Clients</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#eef6fa] text-primary cursor-pointer">
+<span class="material-symbols-outlined fill-1">credit_card</span>
+<p class="text-sm font-bold leading-normal">Mon Abonnement</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-background-light cursor-pointer transition-colors group text-[#657a86] hover:text-[#121517]">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+<p class="text-sm font-medium leading-normal">Paramètres</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 px-3 py-4 border-t border-[#f0f3f4]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 bg-gray-200" data-alt="Portrait of user Jean Dupont" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzadSi-LwZJcQtR-JyzMzjw0wYyMQnblkPo6UAEjVTvlQsNIDDNixC32Dp_CBXskPzHkyN5N9E6tw9lbbVbvH5tsO5jc1BP_S65lnfPeEHIMgLIE_Xep1lvPpD7Z7g3aRcQIoHWsKr6hRxCkHc70kRic6M7TXUBvOT4KlSBqo-kEMZDd3HdebZfY-gRB0q9RolxSgrQuLbWf1xCaeUkDAMrGcQuDBeQLpHM4MTfCrCXpyrTSLUkta-tC5xgRT7ax6GWAesB_zgO3c");'></div>
+<div class="flex flex-col">
+<p class="text-[#121517] text-sm font-bold leading-tight">Jean Dupont</p>
+<p class="text-[#657a86] text-xs font-normal leading-normal">jean.d@immo.fr</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-light">
+<!-- Header -->
+<header class="flex items-center justify-between bg-white border-b border-[#e0e0e0] px-8 py-5 sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 text-slate-600">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-navy text-2xl font-heading font-bold leading-tight tracking-tight">Gestion d'Abonnement</h2>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center justify-center rounded-full size-10 bg-background-light text-[#657a86] hover:text-primary hover:bg-[#eef6fa] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-white"></span>
+</button>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto w-full flex flex-col gap-10">
+<!-- Current Plan Hero -->
+<section class="flex flex-col gap-4">
+<div class="w-full bg-navy rounded-xl p-8 text-white shadow-lg relative overflow-hidden group">
+<!-- Decorative background element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-primary opacity-10 rounded-full -ml-12 -mb-12 pointer-events-none"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-heading font-bold text-3xl tracking-wide">Plan Professionnel</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-success text-white uppercase tracking-wider">
+                                        Actif
+                                    </span>
+</div>
+<p class="text-slate-300 font-light text-lg">Votre prochain renouvellement est prévu le <span class="font-medium text-white">15 Octobre 2024</span></p>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden md:block mr-4">
+<p class="text-2xl font-heading font-bold">149€ <span class="text-sm font-normal text-slate-300">/mois HT</span></p>
+</div>
+<button class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+                                    Gérer le paiement
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Plans -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-navy text-xl font-heading font-bold">Changer de plan</h3>
+<div class="flex bg-white rounded-lg p-1 border border-slate-200 shadow-sm">
+<button class="px-4 py-1.5 rounded text-sm font-medium bg-navy text-white shadow-sm transition-all">Mensuel</button>
+<button class="px-4 py-1.5 rounded text-sm font-medium text-slate-500 hover:text-navy transition-all">Annuel (-20%)</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+<!-- Standard Plan -->
+<div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+<div class="mb-4">
+<h4 class="font-heading font-bold text-xl text-navy">Découverte</h4>
+<p class="text-slate-500 text-sm mt-1">Pour les indépendants qui démarrent.</p>
+</div>
+<div class="mb-6">
+<span class="text-4xl font-heading font-bold text-navy">49€</span>
+<span class="text-slate-500 font-medium">/mois HT</span>
+</div>
+<div class="flex-1 mb-8">
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Accès à 50 annonces/mois</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Tableau de bord basique</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Support par email</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg border border-primary text-primary font-bold hover:bg-primary/5 transition-colors">
+                                Choisir ce plan
+                            </button>
+</div>
+<!-- Professional Plan (Current/Recommended) -->
+<div class="bg-white rounded-xl p-6 border-2 border-primary shadow-lg relative flex flex-col h-full transform scale-[1.02] z-10">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-success text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                                Recommandé
+                            </div>
+<div class="mb-4 mt-2">
+<h4 class="font-heading font-bold text-xl text-navy">Professionnel</h4>
+<p class="text-slate-500 text-sm mt-1">Pour les agences en croissance.</p>
+</div>
+<div class="mb-6">
+<span class="text-4xl font-heading font-bold text-navy">149€</span>
+<span class="text-slate-500 font-medium">/mois HT</span>
+</div>
+<div class="flex-1 mb-8">
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Accès illimité aux annonces</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>CRM Avancé intégré</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Statistiques détaillées</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Support prioritaire 24/7</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg bg-navy text-white font-bold cursor-default opacity-90 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">verified</span>
+                                Plan Actuel
+                            </button>
+</div>
+<!-- Enterprise Plan -->
+<div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+<div class="mb-4">
+<h4 class="font-heading font-bold text-xl text-navy">Entreprise</h4>
+<p class="text-slate-500 text-sm mt-1">Pour les grands réseaux nationaux.</p>
+</div>
+<div class="mb-6">
+<span class="text-4xl font-heading font-bold text-navy">Sur devis</span>
+</div>
+<div class="flex-1 mb-8">
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Tout du plan Professionnel</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>API Dédiée</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>Account Manager dédié</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-600">
+<span class="material-symbols-outlined text-success text-[20px] shrink-0">check_circle</span>
+<span>SSO &amp; Sécurité renforcée</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg border border-primary text-primary font-bold hover:bg-primary/5 transition-colors">
+                                Contacter l'équipe
+                            </button>
+</div>
+</div>
+</section>
+<!-- Invoice History -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-navy text-xl font-heading font-bold">Historique des factures</h3>
+<button class="text-sm text-primary font-medium hover:underline flex items-center gap-1">
+                            Voir tout
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="bg-white rounded-xl shadow-[0_0_4px_rgba(0,0,0,0.1)] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full min-w-[600px]">
+<thead class="bg-slate-50 border-b border-slate-200">
+<tr>
+<th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Description</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Montant</th>
+<th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Statut</th>
+<th class="px-6 py-4 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm text-slate-900 font-medium">15 Oct 2024</td>
+<td class="px-6 py-4 text-sm text-slate-600">Abonnement Professionnel - Mensuel</td>
+<td class="px-6 py-4 text-sm text-slate-900 font-bold">178,80€ <span class="text-xs font-normal text-slate-400">TTC</span></td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+<span class="size-1.5 rounded-full bg-green-600"></span>
+                                                Payé
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Télécharger PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm text-slate-900 font-medium">15 Sept 2024</td>
+<td class="px-6 py-4 text-sm text-slate-600">Abonnement Professionnel - Mensuel</td>
+<td class="px-6 py-4 text-sm text-slate-900 font-bold">178,80€ <span class="text-xs font-normal text-slate-400">TTC</span></td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+<span class="size-1.5 rounded-full bg-green-600"></span>
+                                                Payé
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Télécharger PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm text-slate-900 font-medium">15 Aout 2024</td>
+<td class="px-6 py-4 text-sm text-slate-600">Abonnement Découverte - Mensuel</td>
+<td class="px-6 py-4 text-sm text-slate-900 font-bold">58,80€ <span class="text-xs font-normal text-slate-400">TTC</span></td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+<span class="size-1.5 rounded-full bg-green-600"></span>
+                                                Payé
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Télécharger PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

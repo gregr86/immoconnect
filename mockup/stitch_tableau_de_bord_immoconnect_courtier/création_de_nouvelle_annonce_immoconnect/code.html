@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ImmoConnect - Nouvelle Annonce</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3B5DA8", // Blue from description
+                        "secondary": "#0E3A53", // Navy from description
+                        "success": "#009984", // Green from description
+                        "ice-blue": "#D8E8F7", // Ice Blue from description
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#14171e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem", // 12px
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 flex flex-col bg-white border-r border-slate-200 h-full z-20">
+<div class="flex flex-col h-full justify-between p-4">
+<div class="flex flex-col gap-6">
+<!-- Logo Area -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary/10 flex items-center justify-center rounded-xl size-10 text-primary">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-secondary text-lg font-bold leading-none">ImmoConnect</h1>
+<p class="text-slate-500 text-xs font-medium mt-1">Espace Pro</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary group" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">real_estate_agent</span>
+<span class="text-sm font-bold">Mes Annonces</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">groups</span>
+<span class="text-sm font-medium">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">chat</span>
+<span class="text-sm font-medium">Messagerie</span>
+<span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">folder_open</span>
+<span class="text-sm font-medium">Documents</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Settings -->
+<div class="flex flex-col gap-1 border-t border-slate-100 pt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Paramètres</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-red-500 transition-colors">logout</span>
+<span class="text-sm font-medium">Déconnexion</span>
+</a>
+<!-- User Profile Mini -->
+<div class="mt-4 flex items-center gap-3 px-2 py-2 bg-slate-50 rounded-xl">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 border border-white shadow-sm" data-alt="Profile picture of a professional agent" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGTATsyKDxGnljEz7HWWYOUBIcsOhwQgEgE8T0Sevd4rnZkri3XdeInHTZDFcDhvy0mMgstObrqdcdKecxEMrTLCHvrG31lwtsWXb_vf-SlydeibJ1KUOcEmkk5kArg4-gVyP7_FuRN0Qh6_yZS1qlUcAPBTBjgDvHDp5tuZr9r71HyWCtyzWSfYFkO3wnoUP8CdslyAq_5O8aI6w-tNnwDHrvOncUpiYNHT7dJJ17CPJeN-W9k2iT-IoEyyWugjdYMRT2gdVAsio");'></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-slate-900 text-sm font-bold truncate">Jean Dupont</p>
+<p class="text-slate-500 text-xs truncate">Agence Centrale</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-8 bg-white border-b border-slate-200 flex-shrink-0 z-10">
+<!-- Breadcrumbs -->
+<nav class="flex items-center text-sm font-medium text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Accueil</a>
+<span class="material-symbols-outlined text-base mx-2 text-slate-400">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Mes Annonces</a>
+<span class="material-symbols-outlined text-base mx-2 text-slate-400">chevron_right</span>
+<span class="text-secondary font-semibold">Nouvelle Annonce</span>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/20 w-64 placeholder:text-slate-400" placeholder="Rechercher..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto bg-background-light p-8 no-scrollbar">
+<div class="max-w-5xl mx-auto flex flex-col gap-8 pb-12">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-bold text-secondary tracking-tight">Création d'une nouvelle annonce</h1>
+<p class="text-slate-500">Remplissez les informations ci-dessous pour publier votre bien sur le marché professionnel.</p>
+</div>
+<!-- Wizard Progress -->
+<div class="bg-white rounded-lg p-6 shadow-sm border border-slate-100">
+<div class="flex items-center justify-between relative">
+<!-- Progress Line Background -->
+<div class="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -z-10 rounded-full"></div>
+<!-- Progress Line Active -->
+<div class="absolute top-1/2 left-0 w-[12%] h-1 bg-primary -z-10 rounded-full transition-all duration-500"></div>
+<!-- Step 1: Active -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="size-10 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 ring-4 ring-white">
+<span class="material-symbols-outlined text-xl">edit_document</span>
+</div>
+<span class="text-sm font-bold text-primary">Informations</span>
+</div>
+<!-- Step 2: Inactive -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="size-10 rounded-full bg-ice-blue text-slate-400 flex items-center justify-center ring-4 ring-white border border-slate-200">
+<span class="material-symbols-outlined text-xl">imagesmode</span>
+</div>
+<span class="text-sm font-medium text-slate-500">Médias</span>
+</div>
+<!-- Step 3: Inactive -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer opacity-60">
+<div class="size-10 rounded-full bg-ice-blue text-slate-400 flex items-center justify-center ring-4 ring-white border border-slate-200">
+<span class="material-symbols-outlined text-xl">folder_zip</span>
+</div>
+<span class="text-sm font-medium text-slate-500">Documents</span>
+</div>
+<!-- Step 4: Inactive -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer opacity-60">
+<div class="size-10 rounded-full bg-ice-blue text-slate-400 flex items-center justify-center ring-4 ring-white border border-slate-200">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+</div>
+<span class="text-sm font-medium text-slate-500">Récapitulatif</span>
+</div>
+</div>
+</div>
+<!-- Form Card -->
+<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+<div class="border-b border-slate-100 px-8 py-5 flex items-center justify-between bg-slate-50/50">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary rounded-full p-1.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">info</span>
+</span>
+<h2 class="text-lg font-bold text-secondary">Informations générales</h2>
+</div>
+<span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Étape 1/4</span>
+</div>
+<div class="p-8">
+<form class="flex flex-col gap-8">
+<!-- Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 flex items-center gap-1">
+                                        Type de bien
+                                        <span class="text-red-500">*</span>
+</label>
+<div class="relative">
+<select class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none font-medium">
+<option disabled="" selected="" value="">Sélectionner...</option>
+<option value="bureaux">Bureaux</option>
+<option value="commerce">Commerce</option>
+<option value="entrepot">Logistique &amp; Entrepôt</option>
+<option value="coworking">Coworking</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 flex items-center gap-1">
+                                        Localisation
+                                        <span class="text-red-500">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400" placeholder="Saisir une adresse..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">location_on</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 flex items-center gap-1">
+                                        Surface totale
+                                        <span class="text-red-500">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400" placeholder="0" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-bold bg-slate-100 px-2 py-0.5 rounded">m²</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700">Année de construction</label>
+<div class="relative">
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400" placeholder="YYYY" type="number"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">calendar_today</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 text-transparent select-none">Disp.</label>
+<div class="flex items-center h-full pt-1">
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+<span class="ms-3 text-sm font-medium text-slate-700">Disponible immédiatement</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Row 3: Financials -->
+<div class="p-5 bg-ice-blue/30 rounded-lg border border-ice-blue/50 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-secondary flex items-center gap-1">
+                                        Loyer mensuel (HT / HC)
+                                        <span class="text-red-500">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400 shadow-sm" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold">€</span>
+</div>
+<p class="text-xs text-slate-500 pl-1">Soit <span class="font-bold text-slate-700">0 €</span> / m² / an</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-secondary">Taxe foncière (Annuel)</label>
+<div class="relative">
+<input class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400 shadow-sm" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold">€ / an</span>
+</div>
+</div>
+</div>
+<!-- Row 4: Description -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<label class="text-sm font-semibold text-slate-700">Description détaillée</label>
+<span class="text-xs text-slate-400 font-medium">0 / 2000 caractères</span>
+</div>
+<textarea class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium placeholder:text-slate-400 resize-none" placeholder="Décrivez les atouts de votre bien (agencement, luminosité, accès, état général, etc.)..." rows="6"></textarea>
+<div class="flex gap-2 mt-1">
+<button class="text-xs font-bold text-primary bg-primary/5 px-2 py-1 rounded hover:bg-primary/10 transition-colors" type="button">Générer avec l'IA ✨</button>
+</div>
+</div>
+</form>
+</div>
+<!-- Footer Actions -->
+<div class="border-t border-slate-100 p-6 bg-slate-50 flex justify-between items-center">
+<button class="px-6 py-2.5 rounded-lg text-slate-500 font-bold hover:text-slate-700 hover:bg-slate-200/50 transition-colors" type="button">
+                            Annuler
+                        </button>
+<button class="flex items-center gap-2 px-8 py-2.5 rounded-lg bg-primary text-white font-bold shadow-lg shadow-primary/30 hover:bg-primary/90 hover:shadow-primary/40 transition-all transform active:scale-95" type="button">
+                            Suivant
+                            <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Helper Card (Optional Context) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-gradient-to-br from-secondary to-slate-800 rounded-lg p-6 text-white md:col-span-1 shadow-lg relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 opacity-10">
+<span class="material-symbols-outlined text-[150px]">lightbulb</span>
+</div>
+<div class="relative z-10 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-ice-blue">
+<span class="material-symbols-outlined">tips_and_updates</span>
+<span class="text-xs font-bold uppercase tracking-wider">Conseil Pro</span>
+</div>
+<h3 class="font-bold text-lg leading-tight">Optimisez votre visibilité</h3>
+<p class="text-slate-300 text-sm leading-relaxed">Les annonces avec une description complète et au moins 5 photos de haute qualité reçoivent 40% de contacts en plus.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
