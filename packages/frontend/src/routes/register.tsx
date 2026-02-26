@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUp } from "@/lib/auth-client";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -79,9 +80,7 @@ function RegisterPage() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md rounded-xl shadow-sm">
         <CardHeader className="text-center pb-2">
-          <div className="h-12 w-12 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-lg font-heading font-bold mx-auto mb-4">
-            IC
-          </div>
+          <Logo className="h-10 w-auto mx-auto mb-4" />
           <h1 className="font-heading font-bold text-2xl text-foreground">
             Créer un compte
           </h1>

@@ -12,7 +12,7 @@ import { marketplaceRoutes } from "./routes/marketplace";
 import { leadRoutes } from "./routes/leads";
 import { energyRoutes } from "./routes/energy";
 
-const CORS_ORIGIN = "http://localhost:3001";
+const CORS_ORIGIN = process.env.FRONTEND_URL || "http://localhost:3001";
 
 const app = new Elysia()
   // Webhook Stripe (raw body, sans CORS)

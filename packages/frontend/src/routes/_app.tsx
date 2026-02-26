@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NotificationDropdown } from "@/components/messaging/notification-dropdown";
+import { Logo } from "@/components/logo";
 
 export const Route = createFileRoute("/_app")({
   beforeLoad: async () => {
@@ -92,11 +93,10 @@ function AppLayout() {
       >
         {/* Logo */}
         <div className="flex items-center gap-3 p-4 border-b border-white/10">
-          <div className="h-8 w-8 rounded-lg bg-sidebar-active flex items-center justify-center text-sm font-heading font-bold shrink-0">
-            IC
-          </div>
-          {!collapsed && (
-            <span className="font-heading font-bold text-lg">ImmoConnect</span>
+          {collapsed ? (
+            <Logo variant="white" className="h-8 w-8 shrink-0 object-contain" />
+          ) : (
+            <Logo variant="white" className="h-8 w-auto" />
           )}
         </div>
 
